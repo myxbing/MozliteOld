@@ -1,12 +1,12 @@
-﻿using Mozlite.Data.Migrations;
-using Mozlite.Data.Migrations.Builders;
+﻿using Mozlite.Data.Migrations.Builders;
+using Mozlite.Extensions.Tags;
 
 namespace Mozlite.Extensions.Archives
 {
     /// <summary>
     /// 新闻数据库迁移类。
     /// </summary>
-    public class ArchiveDataMigration : ObjectDataMigration<Archive>
+    public class ArchiveDataMigration : ObjectTagDataMigration<ArchiveTagIndexer, Archive>
     {
         /// <summary>
         /// 添加模型对象。
@@ -36,29 +36,9 @@ namespace Mozlite.Extensions.Archives
             .Column(x => x.SourceUrl)
             .Column(x => x.Author)
             .Column(x => x.AuthorId)
-            .Column(x => x.Favorites);
-        }
-
-        public void Up1(MigrationBuilder builder)
-        {
-            builder.AddColumn<Archive>(x => x.CategoryId);
-            builder.AddColumn<Archive>(x => x.TargetId);
-        }
-
-        public void Down1(MigrationBuilder builder)
-        {
-            builder.DropColumn<Archive>(x => x.CategoryId);
-            builder.DropColumn<Archive>(x => x.TargetId);
-        }
-
-        public void Up2(MigrationBuilder builder)
-        {
-            builder.AddColumn<Archive>(x => x.IsSearchIndexed);
-        }
-
-        public void Down2(MigrationBuilder builder)
-        {
-            builder.DropColumn<Archive>(x => x.IsSearchIndexed);
+            .Column(x => x.Favorites)
+            .Column(x => x.CategoryId)
+            .Column(x => x.IsSearchIndexed);
         }
     }
 }

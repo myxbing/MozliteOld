@@ -17,6 +17,6 @@ namespace Mozlite.Extensions.Tags
         /// 模型Id。
         /// </summary>
         [Key]
-        public int ModelId { get; set; }
+        public int Id { get; set; }
     }
 }

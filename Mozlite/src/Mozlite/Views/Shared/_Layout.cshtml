@@ -1,57 +1,136 @@
-﻿<!DOCTYPE html>
+﻿@inject SiteSettings SiteSettings
+@inject User CurrentUser
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Mozlite</title>
-
+    <title>@ViewData["Title"] - @SiteSettings.SiteName</title>
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.1/css/font-awesome.min.css"
+              asp-fallback-href="~/lib/font-awesome/css/font-awesome.min.css"
+              asp-fallback-test-class="fa" asp-fallback-test-property="font" asp-fallback-test-value="normal normal normal 14px/1 FontAwesome" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    @if (!string.IsNullOrWhiteSpace(SiteSettings.Header))
+    { @Html.Raw(SiteSettings.Header)}
+    @RenderSection("headers", false)
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Mozlite</a>
+<body class="@ViewData["BodyClass"]">
+    <div class="container top-container"><alert x-close="true"></alert></div>
+    <div class="navbar">
+        <div class="container main-header">
+            <div class="row">
+                <div class="col-sm-10 col-md-8 col-lg-7">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" _click="in" js-target=".navbar-collapse">
+                            <span class="sr-only">导航</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="login-xs" asp-area="Security" asp-controller="Home" asp-action="Login"><i class="fa fa-sign-in"></i></a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@SiteSettings.SiteName<span>focus on .netcore</span></a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a asp-area="" asp-controller="Home" asp-action="About">问答</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">文章</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="About">新闻</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">标签</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">项目</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-md-4 col-lg-5">
+                    <ul class="list-inline hidden-xs navbar-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="header-message has-unread"><a target="_blank" href="/tour"><span class="sr-only">消息</span><span id="messageCount" class="fa fa-hand-peace-o"></span></a></li>
+                            <li class="header-login user-avatar dropdown">
+                                <a href="~/login" class="dropdown-toggle avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="@(CurrentUser.Avatar?? "/images/avatar.png")" /></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">我的主页</a></li>
+                                    <li><a href="#">我的档案</a></li>
+                                    <li><a href="#">我的问答</a></li>
+                                    <li><a href="#">我的文档</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">退出</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="header-login"><a asp-area="Security" asp-controller="Home" asp-action="Login">注册 ·  登录</a></li>
+                        }
+                    </ul>
+                    <form action="/search" method="get" class="header-search form-horizontal form-inline hidden-sm hidden-xs">
+                        <div class="input-group input-group-sm">
+                            <input name="q" placeholder="输入关键词..." class="form-control search_text" type="text">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+        </div>
+        <div class="subnav clearfix">
+            <div class="container">
+                <ul class="navlist">
+                    <li><a x-current="@ViewBag.Current" x-value="home" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i>首页</a></li>
+                    <li><a x-current="@ViewBag.Current" x-value="feed" asp-area="" asp-controller="Home" asp-action="About"><i class="fa fa-feed"></i>订阅</a></li>
+                    <li><a><span class="split"></span></a></li>
+                    <li><a class="nav-item" asp-area="" asp-controller="Home" asp-action="Contact">文章</a></li>
+                    <li><a class="nav-item" asp-area="" asp-controller="Home" asp-action="About">新闻</a></li>
+                    <li><a class="nav-item" asp-area="" asp-controller="Home" asp-action="Contact">标签</a></li>
+                    <li>
+                        <a class="nav-item nav-more" asp-area="" asp-controller="Home" asp-action="Contact">
+                            ...
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2016 - Mozlite</p>
-        </footer>
     </div>
+    <footer>
+        <div class="container">
+            <div class="clearfix">
+                <span class="pull-right">@Html.Raw(SiteSettings.Copyright)</span>
+                <ul class="links">
+                    <li><a href="/aboutus">关于我们</a></li>
+                    <li><a href="/private">隐私策略</a></li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <script src="http://s4.cnzz.com/stat.php?id=810402&web_id=810402&show=pic" language="JavaScript"></script>
+                <script type="text/javascript">
+                    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F182f9b7f50e2615ba25d8e117eb75a46' type='text/javascript'%3E%3C/script%3E"));
+                </script>
+            </div>
+        </div>
+    </footer>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/jmozlite.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.3.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
         </script>
@@ -61,7 +140,9 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
+    @if (!string.IsNullOrWhiteSpace(SiteSettings.Footer))
+    { @Html.Raw(SiteSettings.Footer)}
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

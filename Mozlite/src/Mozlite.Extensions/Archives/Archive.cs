@@ -154,11 +154,6 @@ namespace Mozlite.Extensions.Archives
         public int CategoryId { get; set; }
 
         /// <summary>
-        /// 所属对象Id，主要用于文章或者专题延伸出来的Id。
-        /// </summary>
-        public int? TargetId { get; set; }
-
-        /// <summary>
         /// 是否已经索引。
         /// </summary>
         public bool IsSearchIndexed { get; set; }

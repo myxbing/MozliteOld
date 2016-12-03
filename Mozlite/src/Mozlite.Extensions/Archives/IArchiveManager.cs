@@ -1,5 +1,7 @@
-﻿using Mozlite.Core;
+﻿using System;
+using Mozlite.Core;
 using Mozlite.Data;
+using Mozlite.Extensions.Tags;
 
 namespace Mozlite.Extensions.Archives
 {
@@ -21,16 +23,12 @@ namespace Mozlite.Extensions.Archives
     /// </summary>
     public class ArchiveManager : ObjectManager<Archive>, IArchiveManager
     {
-        private readonly ITagManager _tagManager;
-
         /// <summary>
         /// 初始化类<see cref="ArchiveManager"/>。
         /// </summary>
         /// <param name="repository">数据库操作接口。</param>
-        /// <param name="tagManager">标签管理接口。</param>
-        public ArchiveManager(IRepository<Archive> repository, ITagManager tagManager) : base(repository)
+        public ArchiveManager(IRepository<Archive> repository) : base(repository)
         {
-            _tagManager = tagManager;
         }
 
         /// <summary>
@@ -40,7 +38,24 @@ namespace Mozlite.Extensions.Archives
         /// <returns>返回文档列表。</returns>
         public ArchiveQuery Load(ArchiveQuery query)
         {
-            return _tagManager.Load(query);
+            return Database.Load(query);
+        }
+
+        /// <summary>
+        /// 保存实例。
+        /// </summary>
+        /// <param name="model">模型实例对象。</param>
+        /// <returns>返回执行结果。</returns>
+        public override DataResult Save(Archive model)
+        {
+            if (IsDulicate(model))
+                return DataAction.Duplicate;
+            if (model.Id > 0)
+            {
+                model.UpdatedDate = DateTime.Now;
+                return DataResult.FromResult(Database.UpdateTagable<Archive, ArchiveTagIndexer>(model), DataAction.Updated);
+            }
+            return DataResult.FromResult(Database.CreateTagable<Archive, ArchiveTagIndexer>(model), DataAction.Created);
         }
     }
 }

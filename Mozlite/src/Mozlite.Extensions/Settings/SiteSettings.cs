@@ -13,7 +13,7 @@
         /// <summary>
         /// 版权信息。
         /// </summary>
-        public string Copyright { get; set; }
+        public string Copyright { get; set; } = "© 2006-2016 www.mozlite.com. All rights reserved.";
 
         /// <summary>
         /// 标题代码。

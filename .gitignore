@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Mozlite/src/Mozlite/wwwroot/lib/

@@ -1,0 +1,102 @@
+﻿@inject SiteSettings SiteSettings
+@inject User CurrentUser
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @(SiteSettings.SiteName)后台管理</title>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/lib/iCheck/skins/minimal/green.css" />
+        <link rel="stylesheet" href="~/css/admin.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.1/css/font-awesome.min.css"
+              asp-fallback-href="~/lib/font-awesome/css/font-awesome.min.css"
+              asp-fallback-test-class="fa" asp-fallback-test-property="font" asp-fallback-test-value="normal normal normal 14px/1 FontAwesome" />
+        <link rel="stylesheet" href="~/lib/iCheck/skins/flat/green.css" />
+        <link rel="stylesheet" href="~/css/admin.min.css" asp-append-version="true" />
+    </environment>
+    @RenderSection("headers", false)
+</head>
+<body>
+    <div class="skin-default wrapper">
+        <div class="wrapper-header">
+            <div class="header">
+                <div class="header-logo"><a href="~/admin" title="@(SiteSettings.SiteName)后台管理"></a></div>
+                <div class="header-links">
+                    <span class="link-item active"><a href="//pan.baidu.com/disk/home" target="_self" title="网盘" node-type="item-title">网盘</a><span class="subscript"></span></span>
+                    <span class="link-item "><a href="//pan.baidu.com/mbox/homepage" target="_self" title="分享" node-type="item-title">分享</a><span class="subscript"></span></span>
+                    <span class="link-item "><a href="/disk/discovery" target="_self" title="更多" node-type="item-title">更多</a><span class="subscript"></span><i class="find-light-icon"></i></span>
+                </div>
+                <div class="header-info">
+                    <div class="user-info dropdown">
+                        <span style="cursor: default;" data-toggle="dropdown">
+                            <span class="user-avatar"><i class="avatar" style="background-image: url(@(CurrentUser.Avatar?? "/images/avatar.png"));"></i></span>
+                            <span>@CurrentUser.UserName</span>
+                        </span>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <form asp-controller="Home" asp-area="Security" asp-action="Logout" id="Logout" method="post" style="display: none;"></form>
+                                <a href="javascript:;" onclick="$('#Logout').submit();">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>退出</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <i class="seperator"></i>
+                    <a class="link-info" href="#help">帮助</a>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-aside">
+            <ul class="menu-list">
+                <li class="list-item active">
+                    <a href="#list/path=%2F">
+                        <span class="text">
+                            <i class="fa fa-desktop"></i>
+                            <span>全部文件</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="wrapper-main">
+            @RenderBody()
+        </div>
+    </div>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/iCheck/icheck.min.js" asp-append-version="true"></script>
+        <script src="~/js/jmozlite.js" asp-append-version="true"></script>
+        <script src="~/js/jtoolbar.js" asp-append-version="true"></script>
+        <script src="~/js/admin.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.3.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/lib/iCheck/icheck.min.js" asp-append-version="true"></script>
+        <script src="~/js/admin.min.js" asp-append-version="true"></script>
+    </environment>
+    @if (!string.IsNullOrWhiteSpace(SiteSettings.Footer))
+    { @Html.Raw(SiteSettings.Footer)}
+    @RenderSection("scripts", required: false)
+</body>
+</html>

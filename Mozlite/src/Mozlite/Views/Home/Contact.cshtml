@@ -1,17 +1,114 @@
 ﻿@{
     ViewData["Title"] = "Contact";
+    Layout = "_Admin";
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="toolbar clearfix" role="toolbar">
+    <div class="bar-sorter dropdown">
+        <div style="cursor: default;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-sort-amount-asc"></i></div>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li class="active"><a href="#">文件名</a></li>
+            <li><a href="#">大小</a></li>
+            <li><a href="#">修改日期</a></li>
+        </ul>
+    </div>
+    <div class="bar-search">
+        <form class="form-horizontal">
+            <div class="input-group">
+                <input placeholder="输入你要搜索的关键词" class="form-control" />
+                <div class="input-group-btn">
+                    <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="bar">
+        <div class="btn-group">
+            <a href="#" onclick="$alert(checkeds().toString())" class="btn primary"><i class="fa fa-plus-circle"></i>添加内容</a>
+        </div>
+        <div class="btn-group">
+            <a href="#" class="btn"><i class="fa fa-recycle"></i>删除</a>
+            <a href="#" class="btn"><i class="fa fa-share-alt"></i>分享</a>
+            <a href="#" js-enabled="1" class="btn"><i class="fa fa-upload"></i>上传</a>
+            <a href="#" js-enabled="1+" class="btn"><i class="fa fa-download"></i>下载</a>
+            <a href="#" class="btn"><i class="fa fa-lock"></i>锁定</a>
+            <a href="#" class="btn"><i class="fa fa-unlock"></i>解锁</a>
+        </div>
+        <div class="btn-group">
+            <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                下拉列表按钮
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Dropdown link</a></li>
+                <li><a href="#">Dropdown link</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="summary clearfix">
+    <div class="summary-inner">
+        <span>全部列表</span><span class="addon">(分享失败超过1年以上的链接记录将被自动清理)</span>
+        <span class="pull-right">已经加载全部，共120个，6页</span>
+    </div>
+</div>
+<div class="list-header">
+    <ul class="list-cols">
+        <li data-key="name" class="col first-col sortable" style="width: 60%;">
+            <input type="checkbox" />
+            <span class="text">文件名</span>
+            <span class="fa fa-long-arrow-down"></span>
+        </li>
+        <li data-key="size" class="col" style="width: 16%;"><span class="text">大小</span><span class="order-icon"></span><span class="icon up-icon icon-up"></span><span class="icon downtitle-icon icon-downtitle"></span></li>
+        <li data-key="time" class="col last-col" style="width: 24%;"><span class="text">修改日期</span><span class="order-icon"></span><span class="icon up-icon icon-up"></span><span class="icon downtitle-icon icon-downtitle"></span></li>
+    </ul>
+    <div class="list-checked">
+        <input type="checkbox" />
+        <span class="text" js-text="已选中$size个文件/文件夹"></span>
+    </div>
+</div>
+<div class="list-body scrolly">
+    <dl class="list-view">
+        @for (int i = 0; i < 20; i++)
+        {
+            <dd class="list-view-item clearfix">
+                <div class="col first-col" style="width: 60%;">
+                    <input value="@i" name="id" type="checkbox" />
+                    <span class="text">@(i).一款非常漂亮的bootstrap表单checkbox/radio样式推荐</span>
+                </div>
+                <div class="col" style="width: 16%;">
+                    256@(i)k
+                </div>
+                <div class="col last-col" style="width: 24%;">
+                    2016年12月3日
+                </div>
+            </dd>
+        }
+    </dl>
+    <div class="list-pager">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="non-result">
+    <div class="non-result-inner">
+        <p class="non-result-img"><em></em></p>
+        <p class="non-result-title">您还没有分享过文件／文件夹～</p>
+    </div>
+</div>
