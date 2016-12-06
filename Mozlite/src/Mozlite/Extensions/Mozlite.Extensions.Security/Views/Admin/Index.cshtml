@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "_Admin";
+    ViewBag.Title = "用户";
+    ViewBag.Current = "users.index";
+}
+@using Mozlite.Mvc
+@model UserQuery
+<toolbar>
+    <sortbar x-query="@Model"></sortbar>
+    <searchbar>
+        <input class="form-control" asp-for="Name" placeholder="输入名称" />
+    </searchbar>
+    <buttonbar>
+        <group>
+            <action x-icon="plus-circle" class="btn-primary">添加用户</action>
+        </group>
+        <group>
+            <action x-modal="@Url.ActionUrl("SetPassword")" x-icon="key" x-enabled="Single">设置密码</action>
+        </group>
+        <dropdownlist x-title="更多操作">
+            <li><a href="#">测试</a></li>
+        </dropdownlist>
+    </buttonbar>
+</toolbar>
+<div class="list-header">
+    <list-header>
+        <item x-mode="First" x-sorter="@UserSorter.Name" style="width: 60%;">名称</item>
+        <item x-sorter="@UserSorter.CreatedDate" style="width: 16%;">注册时间</item>
+        <item x-mode="Last" x-sorter="@UserSorter.LastLoginDate" style="width: 24%;">最后登陆时间</item>
+    </list-header>
+    <div class="list-checked">
+        <input type="checkbox" />
+        <span class="text" js-text="已选中$size个用户"></span>
+    </div>
+</div>
+
+<div class="list-body scrolly">
+    <dl class="list-view">
+        @foreach (var user in Model)
+        {
+            <dd class="list-view-item clearfix">
+                <div class="col first-col" style="width: 60%;">
+                    <input value="@user.UserId" name="id" type="checkbox" />
+                    <span class="text">@(user.NickName)[@user.UserName]</span>
+                </div>
+                <div class="col" style="width: 16%;">
+                    @user.CreatedDate.ToString("g")
+                </div>
+                <div class="col last-col" style="width: 24%;">
+                    @(user.LastLoginDate?.ToString("g") ?? "未登录")
+                </div>
+            </dd>
+        }
+    </dl>
+    <div class="list-pager">
+        <page x-border="true"></page>
+    </div>
+</div>

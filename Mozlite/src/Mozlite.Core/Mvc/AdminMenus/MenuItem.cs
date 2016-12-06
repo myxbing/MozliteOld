@@ -236,6 +236,9 @@ namespace Mozlite.Mvc.AdminMenus
             return this;
         }
 
-        internal string[] Roles { get; private set; } = new string[0];
+        /// <summary>
+        /// 角色列表。
+        /// </summary>
+        public string[] Roles { get; private set; } = new string[0];
     }
 }

@@ -67,11 +67,11 @@ namespace Mozlite.Extensions.Security.Controllers
                     }
                     return Success();
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToAction(nameof(SendCode),
-                        new { ReturnUrl = Request.GetDisplayUrl(), model.RememberMe });
-                }
+                //if (result.RequiresTwoFactor)
+                //{
+                //    return RedirectToAction(nameof(SendCode),
+                //        new { ReturnUrl = Request.GetDisplayUrl(), model.RememberMe });
+                //}
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning(SecuritySettings.EventId, $"账户[{model.UserName}]被锁定。");
@@ -205,99 +205,99 @@ namespace Mozlite.Extensions.Security.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-        /// <summary>
-        /// 发送验证码。
-        /// </summary>
-        public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
-        {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
-            {
-                return View("Error");
-            }
-            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
+        ///// <summary>
+        ///// 发送验证码。
+        ///// </summary>
+        //public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
+        //{
+        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+        //    if (user == null)
+        //    {
+        //        return View("Error");
+        //    }
+        //    var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
+        //    var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+        //    return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+        //}
 
-        /// <summary>
-        /// 发送验证码。
-        /// </summary>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendCode(SendCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+        ///// <summary>
+        ///// 发送验证码。
+        ///// </summary>
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> SendCode(SendCodeViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View();
+        //    }
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
-            {
-                return View("Error");
-            }
+        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+        //    if (user == null)
+        //    {
+        //        return View("Error");
+        //    }
 
-            // Generate the token and send it
-            var code = await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
-            if (string.IsNullOrWhiteSpace(code))
-            {
-                return View("Error");
-            }
+        //    // Generate the token and send it
+        //    var code = await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
+        //    if (string.IsNullOrWhiteSpace(code))
+        //    {
+        //        return View("Error");
+        //    }
 
-            var message = "你的验证码是: " + code;
-            if (model.SelectedProvider == "Email")
-            {
-                await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "[$site;]验证码", message);
-            }
-            else if (model.SelectedProvider == "Phone")
-            {
-                await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
-            }
+        //    var message = "你的验证码是: " + code;
+        //    if (model.SelectedProvider == "Email")
+        //    {
+        //        await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "[$site;]验证码", message);
+        //    }
+        //    else if (model.SelectedProvider == "Phone")
+        //    {
+        //        await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
+        //    }
 
-            return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
-        }
+        //    return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+        //}
 
-        /// <summary>
-        /// 验证激活码。
-        /// </summary>
-        public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string returnUrl = null)
-        {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
-            {
-                return View("Error");
-            }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
+        ///// <summary>
+        ///// 验证激活码。
+        ///// </summary>
+        //public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string returnUrl = null)
+        //{
+        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+        //    if (user == null)
+        //    {
+        //        return View("Error");
+        //    }
+        //    return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+        //}
 
-        /// <summary>
-        /// 验证激活码。
-        /// </summary>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> VerifyCode(VerifyCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        ///// <summary>
+        ///// 验证激活码。
+        ///// </summary>
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> VerifyCode(VerifyCodeViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            // The following code protects for brute force attacks against the two factor codes.
-            // If a user enters incorrect codes for a specified amount of time then the user account
-            // will be locked out for a specified amount of time.
-            var result = await _signInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
-            if (result.Succeeded)
-            {
-                return Redirect(model.ReturnUrl);
-            }
-            if (result.IsLockedOut)
-            {
-                _logger.LogWarning(7, "User account locked out.");
-                return View("Lockout");
-            }
-            ModelState.AddModelError(string.Empty, "Invalid code.");
-            return View(model);
-        }
+        //    // The following code protects for brute force attacks against the two factor codes.
+        //    // If a user enters incorrect codes for a specified amount of time then the user account
+        //    // will be locked out for a specified amount of time.
+        //    var result = await _signInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
+        //    if (result.Succeeded)
+        //    {
+        //        return Redirect(model.ReturnUrl);
+        //    }
+        //    if (result.IsLockedOut)
+        //    {
+        //        _logger.LogWarning(7, "User account locked out.");
+        //        return View("Lockout");
+        //    }
+        //    ModelState.AddModelError(string.Empty, "Invalid code.");
+        //    return View(model);
+        //}
     }
 }

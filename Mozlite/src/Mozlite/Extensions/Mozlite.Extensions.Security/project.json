@@ -6,6 +6,7 @@
   "dependencies": {
     "Mozlite.Core": "1.0.0-*",
     "Mozlite.Extensions": "1.0.0-*",
+    "Mozlite.TagHelpers": "1.0.0-*",
     "NETStandard.Library": "1.6.0"
   },
 

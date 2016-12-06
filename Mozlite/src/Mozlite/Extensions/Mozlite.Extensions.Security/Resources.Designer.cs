@@ -161,5 +161,32 @@ namespace Mozlite.Extensions.Security {
                 return ResourceManager.GetString("UserNameNotNull", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///    查找与 注册时间 类似的本地化字符串。
+        /// </summary>
+        public static string UserSorter_CreatedDate {
+            get {
+                return ResourceManager.GetString("UserSorter_CreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    查找与 最后登陆时间 类似的本地化字符串。
+        /// </summary>
+        public static string UserSorter_LastLoginDate {
+            get {
+                return ResourceManager.GetString("UserSorter_LastLoginDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    查找与 名称 类似的本地化字符串。
+        /// </summary>
+        public static string UserSorter_Name {
+            get {
+                return ResourceManager.GetString("UserSorter_Name", resourceCulture);
+            }
+        }
     }
 }

@@ -30,6 +30,7 @@ a {
         outline: 5px auto -webkit-focus-ring-color;
         outline-offset: -2px;
     }
+
 /*overrides*/
 .navbar {
     border: none;
@@ -334,7 +335,10 @@ footer {
 
 .modal-alert {
     display: none;
-    color: #800000;
+}
+
+.modal-alert .errmsg {
+    margin-left: 10px;
 }
 
 .modal-header {

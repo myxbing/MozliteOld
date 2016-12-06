@@ -111,6 +111,23 @@ namespace Mozlite.Data
         new IQueryable<TModel> OrderByDescending(Expression<Func<TModel, object>> expression);
 
         /// <summary>
+        /// 添加排序规则。
+        /// </summary>
+        /// <typeparam name="TEntity">模型类型。</typeparam>
+        /// <param name="expression">列名称表达式。</param>
+        /// <param name="isDesc">是否为降序。</param>
+        /// <returns>返回当前查询实例对象。</returns>
+        new IQueryable<TModel> OrderBy<TEntity>(Expression<Func<TEntity, object>> expression, bool isDesc);
+
+        /// <summary>
+        /// 添加排序规则。
+        /// </summary>
+        /// <param name="expression">列名称表达式。</param>
+        /// <param name="isDesc">是否为降序。</param>
+        /// <returns>返回当前查询实例对象。</returns>
+        new IQueryable<TModel> OrderBy(Expression<Func<TModel, object>> expression, bool isDesc);
+        
+        /// <summary>
         /// 查询数据库返回<paramref name="size"/>项结果。
         /// </summary>
         /// <param name="size">返回的记录数。</param>

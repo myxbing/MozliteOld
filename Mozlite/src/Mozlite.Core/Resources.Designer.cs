@@ -22,7 +22,7 @@ namespace Mozlite {
     // (使用 /str 选项)，或重新生成 VS 项目。
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -258,15 +258,6 @@ namespace Mozlite {
         }
         
         /// <summary>
-        ///    查找与 上一页 类似的本地化字符串。
-        /// </summary>
-        public static string LastPage {
-            get {
-                return ResourceManager.GetString("LastPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///    查找与 上传路径不正确，当前文件所属实例不明确！ 类似的本地化字符串。
         /// </summary>
         public static string MediaFileUploadPathIsError {
@@ -285,15 +276,6 @@ namespace Mozlite {
         }
         
         /// <summary>
-        ///    查找与 下一页 类似的本地化字符串。
-        /// </summary>
-        public static string NextPage {
-            get {
-                return ResourceManager.GetString("NextPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///    查找与 The property &apos;{0}&apos; of entity type &apos;{1}&apos; does not have a getter.  类似的本地化字符串。
         /// </summary>
         public static string NoGetter {
@@ -308,15 +290,6 @@ namespace Mozlite {
         public static string NoSetter {
             get {
                 return ResourceManager.GetString("NoSetter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///    查找与 第{0}页 类似的本地化字符串。
-        /// </summary>
-        public static string NumberPage {
-            get {
-                return ResourceManager.GetString("NumberPage", resourceCulture);
             }
         }
         

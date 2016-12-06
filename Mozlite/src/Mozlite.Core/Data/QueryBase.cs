@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,10 +17,20 @@ namespace Mozlite.Data
         /// <param name="context">查询上下文。</param>
         protected internal abstract void Init(IQueryContext<TModel> context);
 
+        private int _page;
         /// <summary>
         /// 页码。
         /// </summary>
-        public int Page { get; set; }
+        public int Page
+        {
+            get
+            {
+                if (_page < 1)
+                    _page = 1;
+                return _page;
+            }
+            set { _page = Math.Max(1, value); }
+        }
 
         /// <summary>
         /// 每页显示记录数。

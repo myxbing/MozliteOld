@@ -1,8 +1,8 @@
 ﻿/// <reference path="../_references.js" />
 $(function () {
     //list-body
-    window.onload = window.onresize = function () {
-        $('.scrolly').height($(document).height() - $('.scrolly').offset().top);
-    };
-
+    if ($('.scrolly').length > 0)
+        window.onload = window.onresize = function () {
+            $('.scrolly').height($(document).height() - $('.scrolly').offset().top);
+        };
 });

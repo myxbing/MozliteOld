@@ -55,7 +55,7 @@
                     <ul class="list-inline hidden-xs navbar-right">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="header-message has-unread"><a target="_blank" href="/tour"><span class="sr-only">消息</span><span id="messageCount" class="fa fa-hand-peace-o"></span></a></li>
+                            <li class="header-message has-unread hidden-sm hidden-md hidden-xs"><a target="_blank" href="/tour"><span class="sr-only">消息</span><span id="messageCount" class="fa fa-hand-peace-o"></span></a></li>
                             <li class="header-login user-avatar dropdown">
                                 <a href="~/login" class="dropdown-toggle avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="@(CurrentUser.Avatar?? "/images/avatar.png")" /></a>
                                 <ul class="dropdown-menu">

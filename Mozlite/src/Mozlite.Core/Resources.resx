@@ -183,26 +183,17 @@
   <data name="InvalidPropertyExpression" xml:space="preserve">
     <value>The expression '{0}' is not a valid property expression. The expression should represent a property access: 't =&gt; t.MyProperty'.</value>
   </data>
-  <data name="LastPage" xml:space="preserve">
-    <value>上一页</value>
-  </data>
   <data name="MediaFileUploadPathIsError" xml:space="preserve">
     <value>上传路径不正确，当前文件所属实例不明确！</value>
   </data>
   <data name="MigrationError" xml:space="preserve">
     <value>The migration is error:{0}.</value>
   </data>
-  <data name="NextPage" xml:space="preserve">
-    <value>下一页</value>
-  </data>
   <data name="NoGetter" xml:space="preserve">
     <value>The property '{0}' of entity type '{1}' does not have a getter. </value>
   </data>
   <data name="NoSetter" xml:space="preserve">
     <value>The property '{0}' of entity type '{1}' does not have a setter.</value>
-  </data>
-  <data name="NumberPage" xml:space="preserve">
-    <value>第{0}页</value>
   </data>
   <data name="ObjectStatus_Disabled" xml:space="preserve">
     <value>禁用</value>

@@ -89,7 +89,7 @@ a {
         text-decoration: underline;
     }
 
-.btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open > .btn-primary.dropdown-toggle {
+.btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus, .btn-primary:hover, .open > .btn-primary.dropdown-toggle {
     color: #fff;
     background-color: #63a911;
     border-color: #2f5a03;
@@ -362,7 +362,7 @@ a {
             opacity: 0.8;
         }
 
-    .toolbar .btn-primary {
+    .toolbar .btn-primary, .toolbar .btn-primary:focus, .toolbar .btn-primary:visited {
         background: #518c17;
         color: #fff;
     }
@@ -468,7 +468,7 @@ a {
     margin-top: 15px;
 }
 
-    .list-header ul {
+    .list-header ul.list-cols {
         border-top-color: #fff;
         height: 36px;
         line-height: 36px;
@@ -490,6 +490,14 @@ a {
     .list-header .sortable:hover {
         background: #f6faff;
         cursor: pointer;
+    }
+
+    .list-header .sortable .fa {
+        display: none;
+    }
+
+    .list-header .sortable.active .fa {
+        display: inline-block;
     }
 
     .list-header .first-col {
@@ -639,4 +647,17 @@ a {
 
 .settings .CodeMirror {
     height: 200px;
+}
+
+.modal-body .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.modal-alert {
+    display: none;
+}
+
+.modal-alert .errmsg {
+    margin-left: 10px;
 }

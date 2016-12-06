@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Mozlite.Data;
 
 namespace Mozlite.Extensions.Identity
 {
@@ -142,7 +143,7 @@ namespace Mozlite.Extensions.Identity
         /// <param name="userIds">用户Id集合。</param>
         /// <returns>返回删除结果。</returns>
         bool DeleteUsers(int[] userIds);
-        
+
         /// <summary>
         /// 锁定用户。
         /// </summary>
@@ -221,12 +222,20 @@ namespace Mozlite.Extensions.Identity
         /// </summary>
         /// <returns>返回当前登录用户实例。</returns>
         TUser GetUser();
-        
+
         /// <summary>
         /// 生成一个电子邮件验证码。
         /// </summary>
         /// <param name="user">当前用户实例。</param>
         /// <returns>返回验证码。</returns>
         Task<string> GenerateEmailConfirmationTokenAsync(TUser user);
+
+        /// <summary>
+        /// 分页检索用户。
+        /// </summary>
+        /// <typeparam name="TQuery">用户查询类型。</typeparam>
+        /// <param name="query">用户查询实例对象。</param>
+        /// <returns>返回分页实例。</returns>
+        TQuery Load<TQuery>(TQuery query) where TQuery : QueryBase<TUser>;
     }
 }

@@ -154,4 +154,13 @@
   <data name="UserNameNotNull" xml:space="preserve">
     <value>用户名称不能为空！</value>
   </data>
+  <data name="UserSorter_CreatedDate" xml:space="preserve">
+    <value>注册时间</value>
+  </data>
+  <data name="UserSorter_LastLoginDate" xml:space="preserve">
+    <value>最后登陆时间</value>
+  </data>
+  <data name="UserSorter_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
 </root>

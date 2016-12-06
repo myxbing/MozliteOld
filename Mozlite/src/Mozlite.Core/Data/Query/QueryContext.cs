@@ -371,8 +371,7 @@ namespace Mozlite.Data.Query
         /// <param name="expression">列名称表达式。</param>
         public virtual IQueryable<TModel> OrderBy<TEntity>(Expression<Func<TEntity, object>> expression)
         {
-            _orderbys.AddRange(expression.GetPropertyAccessList().Select(Delimit<TEntity>));
-            return this;
+            return OrderBy(expression, false);
         }
 
         /// <summary>
@@ -382,15 +381,14 @@ namespace Mozlite.Data.Query
         /// <param name="expression">列名称表达式。</param>
         public virtual IQueryable<TModel> OrderByDescending<TEntity>(Expression<Func<TEntity, object>> expression)
         {
-            _orderbys.AddRange(expression.GetPropertyAccessList().Select(field => Delimit<TEntity>(field) + " DESC"));
-            return this;
+            return OrderBy(expression, true);
         }
 
         /// <summary>
         /// 添加排序规则。
         /// </summary>
         /// <param name="expression">列名称表达式。</param>
-        public IQueryable<TModel> OrderBy(Expression<Func<TModel, object>> expression)
+        public virtual IQueryable<TModel> OrderBy(Expression<Func<TModel, object>> expression)
         {
             return OrderBy<TModel>(expression);
         }
@@ -399,10 +397,56 @@ namespace Mozlite.Data.Query
         /// 添加排序规则。
         /// </summary>
         /// <param name="expression">列名称表达式。</param>
-        public IQueryable<TModel> OrderByDescending(Expression<Func<TModel, object>> expression)
+        public virtual IQueryable<TModel> OrderByDescending(Expression<Func<TModel, object>> expression)
         {
             return OrderByDescending<TModel>(expression);
         }
+
+        /// <summary>
+        /// 添加排序规则。
+        /// </summary>
+        /// <typeparam name="TEntity">模型类型。</typeparam>
+        /// <param name="expression">列名称表达式。</param>
+        /// <param name="isDesc">是否为降序。</param>
+        /// <returns>返回当前查询实例对象。</returns>
+        public virtual IQueryable<TModel> OrderBy<TEntity>(Expression<Func<TEntity, object>> expression, bool isDesc)
+        {
+            var properties = expression.GetPropertyAccessList();
+            if (isDesc)
+                _orderbys.AddRange(properties.Select(field => Delimit<TEntity>(field) + " DESC"));
+            else
+                _orderbys.AddRange(properties.Select(Delimit<TEntity>));
+            return this;
+        }
+
+        /// <summary>
+        /// 添加排序规则。
+        /// </summary>
+        /// <param name="expression">列名称表达式。</param>
+        /// <param name="isDesc">是否为降序。</param>
+        /// <returns>返回当前查询实例对象。</returns>
+        public virtual IQueryable<TModel> OrderBy(Expression<Func<TModel, object>> expression, bool isDesc)
+        {
+            return OrderBy<TModel>(expression, isDesc);
+        }
+        
+        /// <summary>
+        /// 添加排序规则。
+        /// </summary>
+        /// <param name="expression">列名称表达式。</param>
+        /// <param name="isDesc">是否为降序。</param>
+        /// <returns>返回当前查询实例对象。</returns>
+        IQueryContext<TModel> IQueryContext<TModel>.OrderBy<TEntity>(Expression<Func<TEntity, object>> expression, bool isDesc)
+            => OrderBy(expression, isDesc);
+
+        /// <summary>
+        /// 添加排序规则。
+        /// </summary>
+        /// <param name="expression">列名称表达式。</param>
+        /// <param name="isDesc">是否为降序。</param>
+        /// <returns>返回当前查询实例对象。</returns>
+        IQueryContext<TModel> IQueryContext<TModel>.OrderBy(Expression<Func<TModel, object>> expression, bool isDesc)
+            => OrderBy(expression, isDesc);
 
         IQueryContext<TModel> IQueryContext<TModel>.OrderBy<TEntity>(Expression<Func<TEntity, object>> expression)
             => OrderBy(expression);

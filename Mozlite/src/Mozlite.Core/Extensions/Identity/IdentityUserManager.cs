@@ -285,6 +285,17 @@ namespace Mozlite.Extensions.Identity
         }
 
         /// <summary>
+        /// 分页检索用户。
+        /// </summary>
+        /// <typeparam name="TQuery">用户查询类型。</typeparam>
+        /// <param name="query">用户查询实例对象。</param>
+        /// <returns>返回分页实例。</returns>
+        public TQuery Load<TQuery>(TQuery query) where TQuery : QueryBase<TUser>
+        {
+            return Repository.Load(query);
+        }
+
+        /// <summary>
         /// 通过名称查找用户。
         /// </summary>
         /// <param name="userName">用户名称。</param>
