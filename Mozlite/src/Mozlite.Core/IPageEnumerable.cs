@@ -11,7 +11,7 @@ namespace Mozlite
         /// <summary>
         /// 页码。
         /// </summary>
-        int PageIndex { get; }
+        int Page { get; }
 
         /// <summary>
         /// 每页显示记录数。

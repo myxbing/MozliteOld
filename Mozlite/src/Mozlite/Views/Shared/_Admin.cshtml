@@ -28,12 +28,8 @@
     <div class="skin-default wrapper">
         <div class="wrapper-header">
             <div class="header">
-                <div class="header-logo"><a href="~/admin" title="@(SiteSettings.SiteName)后台管理"></a></div>
-                <div class="header-links">
-                    <span class="link-item active"><a href="//pan.baidu.com/disk/home" target="_self" title="网盘" node-type="item-title">网盘</a><span class="subscript"></span></span>
-                    <span class="link-item "><a href="//pan.baidu.com/mbox/homepage" target="_self" title="分享" node-type="item-title">分享</a><span class="subscript"></span></span>
-                    <span class="link-item "><a href="/disk/discovery" target="_self" title="更多" node-type="item-title">更多</a><span class="subscript"></span><i class="find-light-icon"></i></span>
-                </div>
+                <div class="header-logo"><a asp-action="Index" asp-area="" asp-controller="Admin" title="@(SiteSettings.SiteName)后台管理"></a></div>
+                <coremenu class="header-links" x-name="admin"></coremenu>
                 <div class="header-info">
                     <div class="user-info dropdown">
                         <span style="cursor: default;" data-toggle="dropdown">
@@ -55,21 +51,12 @@
                         </ul>
                     </div>
                     <i class="seperator"></i>
-                    <a class="link-info" href="#help">帮助</a>
+                    <a class="link-info" asp-action="Index" asp-area="" asp-controller="Home">前台</a>
                 </div>
             </div>
         </div>
         <div class="wrapper-aside">
-            <ul class="menu-list">
-                <li class="list-item active">
-                    <a href="#list/path=%2F">
-                        <span class="text">
-                            <i class="fa fa-desktop"></i>
-                            <span>全部文件</span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
+            <coresubmenu class="menu-list" x-name="admin"></coresubmenu>
         </div>
         <div class="wrapper-main">
             @RenderBody()
@@ -98,5 +85,6 @@
     @if (!string.IsNullOrWhiteSpace(SiteSettings.Footer))
     { @Html.Raw(SiteSettings.Footer)}
     @RenderSection("scripts", required: false)
+    <jsalert></jsalert>
 </body>
 </html>

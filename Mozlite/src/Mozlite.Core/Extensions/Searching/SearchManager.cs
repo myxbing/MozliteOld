@@ -112,7 +112,7 @@ namespace Mozlite.Extensions.Searching
         /// <inheritdoc />
         public virtual async Task<SearchQuery> LoadAsync(SearchQuery query)
         {
-            if (query.PageIndex <= 1)
+            if (query.Page <= 1)
                 await _indexes.IncreaseByAsync(si => si.Name == query.Q, s => s.Priority, 1);
             return await _searches.LoadAsync(query);
         }

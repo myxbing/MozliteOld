@@ -667,7 +667,7 @@ namespace Mozlite.Data.Query
         protected IPageEnumerable<TModel> LoadPage()
         {
             var models = new PageEnumerable<TModel>();
-            models.PageIndex = PageIndex ?? 1;
+            models.Page = PageIndex ?? 1;
             models.PageSize = Size ?? 20;
             using (var reader = _db.ExecuteReader(_sqlGenerator.Query(this).ToString()))
             {
@@ -687,7 +687,7 @@ namespace Mozlite.Data.Query
         protected async Task<IPageEnumerable<TModel>> LoadPageAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             var models = new PageEnumerable<TModel>();
-            models.PageIndex = PageIndex ?? 1;
+            models.Page = PageIndex ?? 1;
             models.PageSize = Size ?? 20;
             using (var reader = await _db.ExecuteReaderAsync(_sqlGenerator.Query(this).ToString(), cancellationToken: cancellationToken))
             {

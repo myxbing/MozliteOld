@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<form method="POST" class="form-horizontal" role="form">
+    <div class="modal-dialog @ViewBag.ModalClass">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">@Html.Raw(ViewBag.Title)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-alert"><span class="fa fa-warning"></span><span class="errmsg"></span></div>
+                @RenderBody()
+            </div>
+            <div class="modal-footer">
+                @if (IsSectionDefined("footer"))
+                {
+                    @RenderSection("footer", false)
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> 确定</button>
+                }
+            </div>
+        </div>
+    </div>
+</form>

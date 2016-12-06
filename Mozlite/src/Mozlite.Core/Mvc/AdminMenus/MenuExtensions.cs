@@ -33,5 +33,25 @@ namespace Mozlite.Mvc.AdminMenus
                 return true;
             return item.Roles.Any(it => viewContext.HttpContext.User.IsInRole(it));
         }
+
+        public static bool IsCurrent(this MenuItem current, MenuItem item)
+        {
+            while (current != null && current.Level >= 0)
+            {
+                if (current.Name == item.Name)
+                    return true;
+                current = current.Parent;
+            }
+            return false;
+        }
+
+        public static MenuItem GetTopMenu(this MenuItem current)
+        {
+            while (current != null && current.Level > 0)
+            {
+                current = current.Parent;
+            }
+            return current;
+        }
     }
 }

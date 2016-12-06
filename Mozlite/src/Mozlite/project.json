@@ -22,7 +22,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "Mozlite.Core": "1.0.0-*",
-    "Mozlite.Extensions": "1.0.0-*"
+    "Mozlite.Extensions": "1.0.0-*",
+    "Mozlite.Extensions.Security": "1.0.0-*"
   },
 
   "tools": {
@@ -41,6 +42,9 @@
   },
 
   "buildOptions": {
+    "compile": {
+      "exclude": [ "Extensions/**" ]
+    },
     "emitEntryPoint": true,
     "preserveCompilationContext": true
   },

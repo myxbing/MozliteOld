@@ -29,7 +29,7 @@ namespace Mozlite.Data.Internal
         /// <summary>
         /// 页码。
         /// </summary>
-        public int PageIndex { get; set; }
+        public int Page { get; set; }
 
         /// <summary>
         /// 每页显示记录数。

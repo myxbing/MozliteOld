@@ -123,7 +123,7 @@ namespace Mozlite.Extensions.Identity
             userName = userName.ToUpper();
             var userAddress = _httpContextAccessor.HttpContext.GetUserAddress();
             return Repository.Update(u => u.NormalizedUserName == userName,
-                new { LoginIP = userAddress, LastLoginDate = DateTime.Now });
+                new { LoginIP = userAddress, LastLoginDate = DateTimeOffset.Now });
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Mozlite.Extensions.Identity
             userName = userName.ToUpper();
             var userAddress = _httpContextAccessor.HttpContext.GetUserAddress();
             return Repository.UpdateAsync(u => u.NormalizedUserName == userName,
-                new { LoginIP = userAddress, LastLoginDate = DateTime.Now });
+                new { LoginIP = userAddress, LastLoginDate = DateTimeOffset.Now });
         }
 
         /// <summary>
@@ -275,6 +275,16 @@ namespace Mozlite.Extensions.Identity
         }
 
         /// <summary>
+        /// 生成一个电子邮件验证码。
+        /// </summary>
+        /// <param name="user">当前用户实例。</param>
+        /// <returns>返回验证码。</returns>
+        public Task<string> GenerateEmailConfirmationTokenAsync(TUser user)
+        {
+            return _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        /// <summary>
         /// 通过名称查找用户。
         /// </summary>
         /// <param name="userName">用户名称。</param>
@@ -339,7 +349,8 @@ namespace Mozlite.Extensions.Identity
 
         private void SetUser(TUser user)
         {
-            user.CreatedDate = DateTime.Now;
+            user.CreatedDate = DateTimeOffset.Now;
+            user.UpdatedDate = DateTimeOffset.Now;
             user.CreatedIP = _httpContextAccessor.HttpContext.GetUserAddress();
         }
 

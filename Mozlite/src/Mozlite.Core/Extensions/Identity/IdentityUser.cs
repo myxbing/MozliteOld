@@ -23,6 +23,13 @@ namespace Mozlite.Extensions.Identity
         public string UserName { get; set; }
 
         /// <summary>
+        /// 昵称。
+        /// </summary>
+        [Size(64)]
+        [Ignore(Ignore.Update)]
+        public string NickName { get; set; }
+
+        /// <summary>
         /// 用于验证的用户名称。
         /// </summary>
         [Size(64)]
@@ -63,8 +70,8 @@ namespace Mozlite.Extensions.Identity
         /// <summary>
         /// 密码重置或修改生成的安全戳。
         /// </summary>
+        [Size(64)]
         [Ignore(Ignore.Update)]
-        [Size(512)]
         public string SecurityStamp { get; set; }
 
         /// <summary>
@@ -121,18 +128,17 @@ namespace Mozlite.Extensions.Identity
         /// 注册时间。
         /// </summary>
         [Ignore(Ignore.Update)]
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTimeOffset CreatedDate { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
         /// 更新时间。
         /// </summary>
-        [Ignore(Ignore.Update)]
-        public DateTime? UpdatedDate { get; set; }
+        public DateTimeOffset UpdatedDate { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
         /// 最后登录时间。
         /// </summary>
         [Ignore(Ignore.Update)]
-        public DateTime? LastLoginDate { get; set; }
+        public DateTimeOffset? LastLoginDate { get; set; }
     }
 }

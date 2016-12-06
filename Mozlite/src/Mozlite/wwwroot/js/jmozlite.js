@@ -90,15 +90,15 @@
         var modal = $(document.body)
             .dset('alert',
                 function () {
-                    return $('<div class="js-alert modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="padding-left:30px; padding-top:30px;"><i style="font-size: 50px;float: left;"></i> <span style="line-height: 50px;vertical-align: middle;margin-left: 28px;"></span></div><div class="modal-footer"><button type="button" class="btn btn-primary"><i class="fa fa-check"></i> 确定</button></div></div></div></div>')
+                    return $('<div class="js-alert modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="padding: 50px 30px 30px;"><div class="col-sm-2"><i style="font-size: 50px;"></i></div> <span class="col-sm-10" style="line-height: 26px; padding-left: 0;"></span></div><div class="modal-footer"><button type="button" class="btn btn-primary"><i class="fa fa-check"></i> 确定</button></div></div></div></div>')
                     .appendTo(document.body);
                 });
         var body = modal.find('.modal-body');
         type = type || 'warning';
         if (type === 'success')
-            body.attr('class', 'modal-body text-success').find('i').attr('class', 'fa fa-check');
+            body.attr('class', 'modal-body row text-success').find('i').attr('class', 'fa fa-check');
         else
-            body.attr('class', 'modal-body text-' + type).find('i').attr('class', 'fa fa-warning');
+            body.attr('class', 'modal-body row text-' + type).find('i').attr('class', 'fa fa-warning');
         body.find('span').html(message);
         var button = modal.find('button').attr('class', 'btn btn-' + type);
         if (reload) button.attr('onclick', 'location.href=location.href;').removeAttr('data-dismiss');
@@ -153,8 +153,12 @@
                     else
                         $alert(d.message, d.type, d.type === 'success' && !success);
                 }
-                if (d.type === 'success' && success)
-                    success(d);
+                if (d.type === 'success') {
+                    if (success)
+                        success(d);
+                    else
+                        location.href = location.href;
+                }
             },
             error: function (e) {
                 submit.removeAttr('disabled').find('i.fa').attr('class', css);
@@ -202,17 +206,20 @@
             return current;
         });
         modal.load(url, function () {
-            var form = modal.find('form')
-                .attr('action', url);
-            func = func || s.js('func');
-            if (func) {
-                modal.data('func', func);
-                form.attr('onsubmit', '$(this).jsModalSubmit(' + func + ');return false;');
+            var form = modal.find('form');
+            if (!form.attr('action'))
+                form.attr('action', url);
+            if (!form.attr('onsubmit')) {
+                func = func || s.js('func');
+                if (func) {
+                    modal.data('func', func);
+                    form.attr('onsubmit', '$(this).jsModalSubmit(' + func + ');return false;');
+                }
+                else
+                    form.attr('onsubmit', '$(this).jsModalSubmit();return false;');
+                if (upload || s.js('upload') === 'true')
+                    form.attr('enctype', 'multipart/form-data');
             }
-            else
-                form.attr('onsubmit', '$(this).jsModalSubmit();return false;');
-            if (upload || s.js('upload') === 'true')
-                form.attr('enctype', 'multipart/form-data');
         }).modal('show');
     };
     window.$modalInsert = function (current, url, modal) {
@@ -273,6 +280,7 @@
             });
             //Modal
             $exec('js-modal', function (s, v) {
+                s.css('cursor', 'pointer');
                 s.on(v, function () {
                     s.jsModal(s.js('url') || s.attr('href'));
                     return false;

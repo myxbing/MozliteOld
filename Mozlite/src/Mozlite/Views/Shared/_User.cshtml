@@ -1,0 +1,127 @@
+﻿@{
+    Layout = "_Layout";
+    var user = Model as User ?? ViewBag.User as User;
+    var link = Url.Action("Index", "User", new { area = "Security", name = user.UserName });
+}
+
+<div class="profile">
+    <header class="profile-header">
+        <div class="container">
+            <div class="row" style="position: relative;">
+                <div class="col-md-2">
+                    <div class="profile-avatar">
+                        <a href="@link">
+                            <img class="profile-avatar" src="@(user.Avatar??"/images/avatar.png")" alt="@user.NickName">
+                        </a>
+                    </div>
+                    <div class="profile-social">
+                        <ul>
+                            <li><a href="http://weibo.com/6green" rel="external nofollow" target="_blank"><i class="fa fa-weixin"></i></a></li>
+                            <li><a href="http://weibo.com/6green" class="text-danger" rel="external nofollow" target="_blank"><i class="fa fa-weibo"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <h2 class="profile-name">
+                        @user.NickName
+                        <small class="ml15"><a href="@link">返回个人主页</a></small>
+                        <a class="follow" href="@link/follow" onclick="return follow('@user.UserName');"><i class="fa fa-star-o"></i>关注</a>
+                    </h2>
+                    <div class="profile-award clearfix">
+                        <a class="btn" href="@link/rank"><span class="h4">173</span><span class="text">声望</span></a>
+                        @*<div class="award-badge">
+                                <span class="badge badge-diamond"><i class="fa fa-diamond"></i></span>
+                                <span class="badge-count">0</span>
+                                <span class="badge badge-trophy"><i class="fa fa-trophy"></i></span>
+                                <span class="badge-count">1</span>
+                                <span class="badge badge-star"><i class="fa fa-star-o"></i></span>
+                                <span class="badge-count">6</span>
+                            </div>*@
+                        <a class="msg" href="@link/msg" js-modal="click"><i class="fa fa-envelope-o"></i>私信</a>
+                    </div>
+                    <div class="profile-intro">
+                        我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！
+                        我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！                        我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！
+                        我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！                        我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！
+                        我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！我是一匹来自北方的狼！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="wrap mt30">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="profile-info row">
+                        <div class="col-md-6 col-xs-12" style="border-right: 1px solid #eee;">
+                            <a href="/u/aresn/users/following"><span>关注了</span><span class="h5">5 人</span></a>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <a href="/u/aresn/users/followed"><span>粉丝</span><span class="h5">20 人</span></a>
+                        </div>
+                    </div>
+                    <ul class="nav nav-pills nav-stacked profile-nav">
+                        <li role="separator" class="divider"></li>
+                        <li class="active"><a href="/u/aresn/">他的主页</a></li>
+                        <li>
+                            <a href="/u/aresn/answers">
+                                <span>
+                                    他的回答
+                                </span><span class="count"> 6</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/u/aresn/questions">
+                                <span>
+                                    他的提问
+                                </span><span class="count"> 10</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/u/aresn/articles">
+                                <span>
+                                    他的文章
+                                </span><span class="count"> 3</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/u/aresn/notes">
+                                <span>
+                                    他的笔记
+                                </span><span class="count"> 2</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/u/aresn/posts">
+                                <span>
+                                    他的分享
+                                </span><span class="count"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/u/aresn/bookmarks">
+                                <span>
+                                    他的收藏夹
+                                </span><span class="count"></span>
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/u/aresn/tags"><span>标签得分</span></a></li>
+                        <li><a href="/u/aresn/badges"><span>获得徽章</span><span class="count"> 7</span></a></li>
+                        <li><a href="/u/aresn/rank"><span>声望记录</span></a></li>
+                    </ul>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+
+@section headers{
+    @RenderSection("headers", false)
+}
+
+@section scripts{
+    @RenderSection("scripts", false)
+}

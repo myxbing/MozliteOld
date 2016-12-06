@@ -1,7 +1,7 @@
 ﻿using Mozlite.Extensions.Identity;
 using Mozlite.Data;
 
-namespace Mozlite.Extensions.Security
+namespace Mozlite.Extensions.Security.Data
 {
     /// <summary>
     /// 用户组数据存储。

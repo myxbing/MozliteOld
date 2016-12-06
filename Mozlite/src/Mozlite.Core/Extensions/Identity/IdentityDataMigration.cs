@@ -30,6 +30,7 @@ namespace Mozlite.Extensions.Identity
             builder.CreateTable(table => table
                .Column(x => x.UserId)
                .Column(x => x.UserName, nullable: false)
+               .Column(x => x.NickName)
                .Column(x => x.NormalizedUserName, nullable: false)
                .Column(x => x.PasswordHash, nullable: false)
                .Column(x => x.Email)

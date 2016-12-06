@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Mozlite.Core;
+using Mozlite.Extensions.Settings;
 
-namespace Mozlite.Extensions.Security
+namespace Mozlite.Extensions.Security.Services
 {
     /// <summary>
     /// 当前用户服务配置。
@@ -27,13 +28,16 @@ namespace Mozlite.Extensions.Security
                    password.RequireNonAlphanumeric = false;
                    password.RequiredLength = 6;
                    options.Password = password;
-                   ////用户配置
+                   //用户配置
                    var user = new UserOptions();
                    user.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
                    user.RequireUniqueEmail = true;
                    options.User = user;
+                   //需要激活电子邮件
+                   options.SignIn.RequireConfirmedEmail = true;
                })
-               .AddScoped(service => service.GetRequiredService<IUserManager>().GetUser());
+               .AddScoped(service => service.GetRequiredService<IUserManager>().GetUser())
+               .AddScoped(service=>service.GetRequiredService<ISettingsManager>().GetSettings<SecuritySettings>());
         }
     }
 }

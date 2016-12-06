@@ -221,5 +221,12 @@ namespace Mozlite.Extensions.Identity
         /// </summary>
         /// <returns>返回当前登录用户实例。</returns>
         TUser GetUser();
+        
+        /// <summary>
+        /// 生成一个电子邮件验证码。
+        /// </summary>
+        /// <param name="user">当前用户实例。</param>
+        /// <returns>返回验证码。</returns>
+        Task<string> GenerateEmailConfirmationTokenAsync(TUser user);
     }
 }

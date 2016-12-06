@@ -89,6 +89,18 @@ a {
         text-decoration: underline;
     }
 
+.btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #63a911;
+    border-color: #2f5a03;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #4e9104;
+    border-color: #2f5a03;
+}
+
 .wrapper {
     overflow: hidden;
     position: absolute;
@@ -141,6 +153,12 @@ a {
             margin-left: 20px;
             float: left;
         }
+
+            .wrapper-header .header .header-logo a {
+                display: block;
+                width: 142px;
+                height: 32px;
+            }
 
     .wrapper-header a:link, .wrapper-header a:hover, .wrapper-header a:active, .wrapper-header a:visited {
         outline: 0;
@@ -275,7 +293,6 @@ a {
         .wrapper-aside .menu-list a .text {
             position: relative;
             display: block;
-            width: 115px;
             padding-left: 38px;
             cursor: pointer;
         }
@@ -345,15 +362,15 @@ a {
             opacity: 0.8;
         }
 
-        .toolbar .btn.primary {
-            background: #518c17;
-            color: #fff;
-        }
+    .toolbar .btn-primary {
+        background: #518c17;
+        color: #fff;
+    }
 
-        .toolbar .btn.disabled, .toolbar .btn.disabled:focus {
-            opacity: 1;
-            color: #ccc;
-        }
+    .toolbar .btn.disabled, .toolbar .btn.disabled:focus {
+        opacity: 1;
+        color: #ccc;
+    }
 
     .toolbar .bar .open .btn {
         border-bottom-left-radius: 0;
@@ -486,7 +503,7 @@ a {
         padding-right: 15px;
     }
 
-    .list-header .first-col .text,.list-header .list-checked .text {
+    .list-header .first-col .text, .list-header .list-checked .text {
         margin-left: 6px;
     }
 
@@ -609,3 +626,17 @@ a {
         text-align: center;
         padding: 10px 0;
     }
+/*form*/
+.form-container {
+    margin: 15px 0 30px 15px;
+    padding-right: 15px;
+}
+
+.form-group .CodeMirror {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.settings .CodeMirror {
+    height: 200px;
+}

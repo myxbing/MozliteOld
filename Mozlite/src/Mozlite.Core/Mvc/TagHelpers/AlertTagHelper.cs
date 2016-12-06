@@ -14,6 +14,7 @@ namespace Mozlite.Mvc.TagHelpers
     public class AlertTagHelper : ViewContextableTagHelper
     {
         private const string ClosableAttributeName = "x-close";
+
         /// <summary>
         /// 是否可关闭。
         /// </summary>
@@ -65,7 +66,8 @@ namespace Mozlite.Mvc.TagHelpers
             output.Content.AppendHtml(content);
             output.Content.AppendHtml("</span>");
             if (IsClosable)
-                output.Content.AppendHtml("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>");
+                output.Content.AppendHtml(
+                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>");
         }
     }
 }

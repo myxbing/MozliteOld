@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "_Admin";
+    ViewBag.Title = "网站配置";
+    ViewBag.Current = "home.settings";
+}
+
+@model SiteSettings
+
+<div class="form-container scrolly settings">
+    <form method="post" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label asp-for="SiteName" class="col-sm-2 control-label">网站名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" asp-for="SiteName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Header" class="col-sm-2 control-label">头部代码</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" asp-for="Header"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Footer" class="col-sm-2 control-label">尾部代码</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" asp-for="Footer"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="IndexHeader" class="col-sm-2 control-label">首页头部代码</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" asp-for="IndexHeader"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="IndexFooter" class="col-sm-2 control-label">首页尾部代码</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" asp-for="IndexFooter"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Copyright" class="col-sm-2 control-label">版权信息</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" asp-for="Copyright"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <button type="submit" class="btn btn-primary">保存配置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <link type="text/css" rel="stylesheet" href="~/lib/codemirror/lib/codemirror.css" />
+    <link type="text/css" rel="stylesheet" href="~/lib/codemirror/theme/eclipse.css" />
+    <script type="text/javascript" src="~/lib/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="~/lib/codemirror/addon/selection/mark-selection.js"></script>
+    <script type="text/javascript" src="~/lib/codemirror/mode/xml/xml.js"></script>
+    <script type="text/javascript" src="~/lib/codemirror/mode/css/css.js"></script>
+    <script type="text/javascript" src="~/lib/codemirror/mode/javascript/javascript.js"></script>
+    <script type="text/javascript" src="~/lib/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script type="text/javascript">
+        var editors = ['Header', 'Footer', 'IndexHeader', 'IndexFooter', 'Copyright'];
+        for (var i = 0; i < editors.length; i++) {
+            editors[i] = CodeMirror.fromTextArea(document.getElementById(editors[i]),
+            {
+                lineNumbers: true,
+                mode: {
+                    name: "htmlmixed",
+                    scriptTypes: [{
+                        matches: /\/x-handlebars-template|\/x-mustache/i,
+                        mode: null
+                    },
+                    {
+                        matches: /(text|application)\/(x-)?vb(a|script)/i,
+                        mode: "vbscript"
+                    }]
+                }
+            });
+        }
+    </script>
+}

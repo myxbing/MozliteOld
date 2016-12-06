@@ -79,7 +79,7 @@ namespace Mozlite.Extensions.Identity
                     await _userClaims.CreateAsync(userClaim, cancellationToken);
                 }
                 return true;
-            });
+            }, cancellationToken: cancellationToken);
         }
 
         public virtual Task AddLoginAsync(TUser user, UserLoginInfo login, CancellationToken cancellationToken)
@@ -384,7 +384,7 @@ namespace Mozlite.Extensions.Identity
                             uc => uc.UserId == user.UserId && uc.ClaimType == claim.Type && uc.ClaimValue == claim.Value, cancellationToken);
                 }
                 return true;
-            });
+            }, cancellationToken: cancellationToken);
         }
 
         public virtual async Task RemoveFromRoleAsync(TUser user, string roleName, CancellationToken cancellationToken)
@@ -463,7 +463,7 @@ namespace Mozlite.Extensions.Identity
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            user.LockoutEnd = lockoutEnd?.DateTime;
+            user.LockoutEnd = lockoutEnd;
             return Task.FromResult(0);
         }
 

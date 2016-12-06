@@ -317,12 +317,12 @@ namespace Mozlite.Mvc.Controllers
         protected string ActionUrl(string action, string controller, object values = null)
         {
             if (values == null)
-                return Url.Action(action, controller, AreaName == null ? null : new { area = AreaName });
+                return Url.Action(action, controller, AreaName == null ? null : new { area = AreaName }, Request.Scheme);
             var routes = new RouteValueDictionary(values);
             if (routes.ContainsKey("area") || AreaName == null)
-                return Url.Action(action, controller, routes);
+                return Url.Action(action, controller, routes, Request.Scheme);
             routes.Add("area", AreaName);
-            return Url.Action(action, controller, routes);
+            return Url.Action(action, controller, routes, Request.Scheme);
         }
         #endregion
 

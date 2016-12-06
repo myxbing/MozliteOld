@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Mozlite.Extensions.Identity;
+using Mozlite.Extensions.Security.Data;
 
 namespace Mozlite.Extensions.Security
 {

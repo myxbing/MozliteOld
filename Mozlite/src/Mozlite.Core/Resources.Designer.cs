@@ -22,7 +22,7 @@ namespace Mozlite {
     // (使用 /str 选项)，或重新生成 VS 项目。
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         

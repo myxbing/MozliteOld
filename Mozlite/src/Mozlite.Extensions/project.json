@@ -2,6 +2,8 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "MimeKit": "1.10.0",
+    "MailKit": "1.10.0",
     "Mozlite.Core": "1.0.0-*",
     "NETStandard.Library": "1.6.0"
   },

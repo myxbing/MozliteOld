@@ -221,9 +221,9 @@ namespace Mozlite.Mvc.TagHelpers
             if (!Border)
                 builder.AddCssClass("borderless");
             int endIndex;
-            var startIndex = Cores.GetRange(Data.PageIndex, Data.Pages, Factor, out endIndex);
-            if (Data.PageIndex > 1)
-                builder.InnerHtml.AppendHtml(CreateLink(Data.PageIndex - 1, Resources.LastPage, title: Resources.LastPage));
+            var startIndex = Cores.GetRange(Data.Page, Data.Pages, Factor, out endIndex);
+            if (Data.Page > 1)
+                builder.InnerHtml.AppendHtml(CreateLink(Data.Page - 1, Resources.LastPage, title: Resources.LastPage));
             if (startIndex > 1)
                 builder.InnerHtml.AppendHtml(CreateLink(1, "1"));
             if (startIndex > 2)
@@ -236,8 +236,8 @@ namespace Mozlite.Mvc.TagHelpers
                 builder.InnerHtml.AppendHtml("<li><span>…</span></li>");
             if (endIndex <= Data.Pages)
                 builder.InnerHtml.AppendHtml(CreateLink(Data.Pages, Data.Pages.ToString()));
-            if (Data.PageIndex < Data.Pages)
-                builder.InnerHtml.AppendHtml(CreateLink(Data.PageIndex + 1, Resources.NextPage, title: Resources.NextPage));
+            if (Data.Page < Data.Pages)
+                builder.InnerHtml.AppendHtml(CreateLink(Data.Page + 1, Resources.NextPage, title: Resources.NextPage));
             output.TagName = "ul";
             output.MergeAttributes(builder);
             output.Content.AppendHtml(builder.InnerHtml);
@@ -248,7 +248,7 @@ namespace Mozlite.Mvc.TagHelpers
             var li = new TagBuilder("li");
             var anchor = _createAnchor(pageIndex);
             anchor.MergeAttribute("title", title ?? string.Format(Resources.NumberPage, pageIndex));
-            if (Data.PageIndex == pageIndex)
+            if (Data.Page == pageIndex)
             {
                 li.AddCssClass(className);
                 anchor.MergeAttribute("href", "javascript:;", true);

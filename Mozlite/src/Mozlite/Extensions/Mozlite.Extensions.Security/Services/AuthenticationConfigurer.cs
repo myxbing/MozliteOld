@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Mozlite.Core;
 
-namespace Mozlite.Extensions.Security
+namespace Mozlite.Extensions.Security.Services
 {
     /// <summary>
     /// 应用程序启动配置类。

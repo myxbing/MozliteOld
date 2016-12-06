@@ -39,30 +39,19 @@ namespace Mozlite.Core
 
         private IEnumerable<RuntimeLibrary> GetLibraries()
         {
+            var entry = Assembly.GetEntryAssembly().GetName().Name.Split('.')[0];
             return DependencyContext.Default.RuntimeLibraries
                  .Distinct(_libraryEqualityComparer)
-                 .Where(lib => IsProjectedLibrary(lib.Name))
+                 .Where(lib => IsProjectedLibrary(entry, lib.Name))
                  .ToList();
         }
 
-        private bool IsProjectedLibrary(string name)
+        //加载Mozlite核心框架，和以网站项目开头的程序集，其他命名的程序集不加载
+        private bool IsProjectedLibrary(string entry, string name)
         {
-            if (name.StartsWith("Microsoft.", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("Microsoft", StringComparison.OrdinalIgnoreCase) ||
-                name.StartsWith("System.", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("System", StringComparison.OrdinalIgnoreCase) ||
-                name.StartsWith("EntityFramework.", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("mscorlib", StringComparison.OrdinalIgnoreCase) ||
-                name.StartsWith("runtime.", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("Newtonsoft.Json", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("Remotion.Linq", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("Ix-Async", StringComparison.OrdinalIgnoreCase) ||
-                name.StartsWith("fx/", StringComparison.OrdinalIgnoreCase) ||
-                name.StartsWith("NuGet.", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("NETStandard.Library", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("Libuv", StringComparison.OrdinalIgnoreCase))
-                return false;
-            return true;
+            if (name.StartsWith("Mozlite.") || name == "Mozlite")
+                return true;
+            return name.StartsWith(entry + ".") || name == entry;
         }
 
         private class LibraryEqualityComparer : IEqualityComparer<RuntimeLibrary>

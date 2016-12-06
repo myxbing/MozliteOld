@@ -1,0 +1,82 @@
+﻿@model RegisterUser
+
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+            <h4 class="modal-title">登陆</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row bg-white login-modal">
+                <div class="col-md-4 col-sm-12 col-md-push-7 login-wrap">
+                    <h1 class="h4 login-title">用户登录</h1>
+                    <form asp-action="Login" asp-area="Security" asp-controller="Home" method="POST" role="form" class="mt30" onsubmit="$submit(this); return false;">
+                        <div class="form-group">
+                            <label class="control-label">用户名称</label>
+                            <input type="text" class="form-control" name="UserName" required="required" placeholder="请输入登陆名称">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">密码</label><span class="pull-right"><a href="~/forgot">忘记密码</a></span>
+                            <input type="password" class="form-control" name="password" required="required" placeholder="密码">
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="checkbox pull-left">
+                                <label><input name="rememberme" type="checkbox" value="true"> 记住登录状态</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary pull-right pl20 pr20">
+                                登录
+                            </button>
+                        </div>
+                    </form>
+                    <p class="h4 visible-xs-block">快速登录</p>
+                    <div class="mt30">
+                        <p class="mt5 mr10 pull-left hidden-xs">快速登录</p>
+                        @*<a href="/user/oauth/google" class="" onclick="ga(&quot;send&quot;, &quot;event&quot;, &quot;3rd login button&quot;, &quot;clicked&quot;, &quot;login modal&quot;, {media: &quot;google&quot;});"><span class="icon-sn-google"></span> <strong class="visible-xs-inline">Google 账号</strong></a>*@
+                    </div>
+                </div>
+                <div class="login-vline hidden-xs hidden-sm"></div>
+                <div class="col-md-4 col-md-pull-3 col-sm-12 login-wrap">
+                    <h1 class="h4 login-title">注册新账号</h1>
+                    <form asp-action="Register" asp-area="Security" asp-controller="Home" method="POST" role="form" class="mt30" onsubmit="$submit(this); return false;">
+                        <div class="form-group">
+                            <label class="control-label">用户名称</label>
+                            <input type="text" class="form-control" name="username" required="required" placeholder="登陆名称" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">密码</label>
+                            <input type="password" class="form-control" name="password" required="required" placeholder="不少于 6 位">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">确认密码</label>
+                            <input type="password" class="form-control" name="confirmpassword" required="required" placeholder="再一次输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">电子邮件</label>
+                            <input type="text" class="form-control" name="email" required="" placeholder="邮件地址" autocomplete="off">
+                        </div>
+                        @*<div class="form-group" style="display:none;">
+                            <label class="required control-label">验证码</label>
+                            <input type="text" class="form-control" id="captcha" name="captcha" placeholder="请输入下方的验证码">
+                            <div class="mt10">
+                                <a id="loginReloadCaptcha" href="javascript:void(0)"><img data-src="/user/captcha?w=240&amp;h=50" class="captcha" width="240" height="50"></a>
+                            </div>
+                        </div>*@
+                        <div class="form-group clearfix">
+                            <div class="checkbox pull-left">
+                                同意并接受<a href="/aggrement" target="_blank">《服务条款》</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary pl20 pr20 pull-right">
+                                注册
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix mt30"></div>
+    </div>
+</div>

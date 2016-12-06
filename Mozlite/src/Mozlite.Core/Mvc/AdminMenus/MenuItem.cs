@@ -168,12 +168,12 @@ namespace Mozlite.Mvc.AdminMenus
         /// <summary>
         /// 添加子菜单链接地址。
         /// </summary>
-        /// <param name="controller">控制器名称。</param>
         /// <param name="action">试图。</param>
+        /// <param name="controller">控制器名称。</param>
         /// <param name="area">区域。</param>
         /// <param name="routeValues">路由实例。</param>
         /// <returns>返回当前菜单实例。</returns>
-        public MenuItem Href(string controller, string action, string area, object routeValues = null)
+        public MenuItem Href(string action, string controller, string area, object routeValues = null)
         {
             _controller = controller;
             _action = action;
