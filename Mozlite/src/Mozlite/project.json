@@ -24,7 +24,9 @@
     "Mozlite.Core": "1.0.0-*",
     "Mozlite.Extensions": "1.0.0-*",
     "Mozlite.Extensions.Security": "1.0.0-*",
-    "Mozlite.TagHelpers": "1.0.0-*"
+    "Mozlite.TagHelpers": "1.0.0-*",
+    "Mozlite.Extensions.Tags": "1.0.0-*",
+    "Mozlite.Extensions.Archives": "1.0.0-*"
   },
 
   "tools": {

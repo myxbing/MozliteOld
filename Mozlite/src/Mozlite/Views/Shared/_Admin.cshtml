@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" href="~/lib/iCheck/skins/minimal/green.css" />
+        <link rel="stylesheet" href="~/css/core.css" />
         <link rel="stylesheet" href="~/css/admin.css" />
     </environment>
     <environment names="Staging,Production">
@@ -34,10 +35,10 @@
                     <div class="user-info dropdown">
                         <span style="cursor: default;" data-toggle="dropdown">
                             <span class="user-avatar"><i class="avatar" style="background-image: url(@(CurrentUser.Avatar?? "/images/avatar.png"));"></i></span>
-                            <span>@CurrentUser.UserName</span>
+                            <span>@CurrentUser.NickName</span>
                         </span>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
+                            <li><a asp-action="Index" asp-area="Security" asp-controller="User">我的主页</a></li>
                             <li><a href="#">Another action</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li role="separator" class="divider"></li>

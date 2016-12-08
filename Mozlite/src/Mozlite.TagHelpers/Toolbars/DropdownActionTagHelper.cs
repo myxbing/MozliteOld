@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Mozlite.TagHelpers.Toolbars;
 
 namespace Mozlite.TagHelpers.Toolbar
 {
@@ -18,6 +20,18 @@ namespace Mozlite.TagHelpers.Toolbar
         public string Title { get; set; }
 
         /// <summary>
+        /// 激活条件。
+        /// </summary>
+        [HtmlAttributeName("x-enabled")]
+        public EnabledMode Enabled { get; set; }
+
+        /// <summary>
+        /// 排除Id。
+        /// </summary>
+        [HtmlAttributeName("x-excluded")]
+        public string ExcludeIds { get; set; }
+
+        /// <summary>
         /// 异步访问并呈现当前标签实例。
         /// </summary>
         /// <param name="context">当前HTML标签上下文，包含当前HTML相关信息。</param>
@@ -26,7 +40,20 @@ namespace Mozlite.TagHelpers.Toolbar
         {
             output.TagName = "div";
             output.MergeClassNames(context, "btn-group");
-            output.Content.AppendHtml($"<a href=\"javascript:;\" class=\"btn dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">{Title} <span class=\"caret\"></span></a>");
+            var anchor = new TagBuilder("a");
+            anchor.MergeAttribute("href", "javascript:;");
+            anchor.MergeAttribute("class", "btn dropdown-toggle");
+            anchor.MergeAttribute("data-toggle", "dropdown");
+            anchor.MergeAttribute("aria-haspopup", "true");
+            anchor.MergeAttribute("aria-expanded", "false");
+            anchor.InnerHtml.AppendHtml($"{Title} <span class=\"caret\"></span>");
+            if (!string.IsNullOrWhiteSpace(ExcludeIds))
+                anchor.MergeAttribute("js-excluded", $",{ExcludeIds.Trim()},");
+            if (Enabled == EnabledMode.Multi)
+                anchor.MergeAttribute("js-enabled", "1+");
+            else if (Enabled == EnabledMode.Single)
+                anchor.MergeAttribute("js-enabled", "1");
+            output.Content.AppendHtml(anchor);
             output.Content.AppendHtml("<ul class=\"dropdown-menu\">");
             output.Content.AppendHtml(await output.GetChildContentAsync());
             output.Content.AppendHtml("</ul>");

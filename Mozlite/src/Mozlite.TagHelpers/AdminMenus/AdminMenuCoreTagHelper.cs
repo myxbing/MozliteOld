@@ -59,7 +59,7 @@ namespace Mozlite.TagHelpers.AdminMenus
                 var wrapper = new TagBuilder("span");
                 wrapper.AddCssClass("link-item");
                 wrapper.AddCssClass($"id-{item.Name.Replace('.', '-')}");
-                if (current.Name == item.Name)
+                if (current?.Name == item.Name)
                     wrapper.AddCssClass("active");
                 wrapper.InnerHtml.AppendHtml(anchor);
                 wrapper.InnerHtml.AppendHtml("<span class=\"subscript\"></span>");

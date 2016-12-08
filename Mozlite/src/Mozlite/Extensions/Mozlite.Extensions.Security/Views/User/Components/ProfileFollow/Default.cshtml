@@ -1,0 +1,13 @@
+﻿@model UserProfile
+@{
+    var link = Url.Action("Index", "User", new { area = "Security", name = Model.User.UserName });
+}
+
+<div class="profile-info row">
+    <div class="col-md-6 col-xs-12" style="border-right: 1px solid #eee;">
+        <a href="@link/following"><span>关注了</span><span class="h5">@(Model.Followeds) 人</span></a>
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <a href="@link/followed"><span>粉丝</span><span class="h5">@(Model.Follows) 人</span></a>
+    </div>
+</div>

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Mozlite.Data;
+using Mozlite.FileProviders;
 
-namespace Mozlite.Extensions.Tags
+namespace Mozlite.Extensions.Tags.Data
 {
     /// <summary>
     /// 标签管理类。
@@ -9,13 +12,17 @@ namespace Mozlite.Extensions.Tags
     public class TagManager : ITagManager
     {
         private readonly IRepository<Tag> _tags;
+        private readonly IMediaFileProvider _provider;
+
         /// <summary>
         /// 初始化类<see cref="TagManager"/>。
         /// </summary>
         /// <param name="tags">标签数据库操作接口。</param>
-        protected TagManager(IRepository<Tag> tags)
+        /// <param name="provider">媒体文件提供者。</param>
+        public TagManager(IRepository<Tag> tags, IMediaFileProvider provider)
         {
             _tags = tags;
+            _provider = provider;
         }
 
         /// <summary>
@@ -73,6 +80,17 @@ namespace Mozlite.Extensions.Tags
         }
 
         /// <summary>
+        /// 分页加载标签。
+        /// </summary>
+        /// <typeparam name="TQuery">查询实例类型。</typeparam>
+        /// <param name="query">查询实例。</param>
+        /// <returns>返回分页标签列表。</returns>
+        public TQuery Load<TQuery>(TQuery query) where TQuery : QueryBase<Tag>
+        {
+            return _tags.Load(query);
+        }
+
+        /// <summary>
         /// 获取标签。
         /// </summary>
         /// <param name="id">标签Id。</param>
@@ -80,6 +98,27 @@ namespace Mozlite.Extensions.Tags
         public Tag Get(int id)
         {
             return _tags.Find(x => x.Id == id);
+        }
+
+        /// <summary>
+        /// 保存内容详情。
+        /// </summary>
+        /// <param name="id">标签Id。</param>
+        /// <param name="body">内容详情。</param>
+        /// <returns>返回保存结果。</returns>
+        public DataResult SaveBody(int id, string body)
+        {
+            return DataResult.FromResult(_tags.Update(x=>x.Id == id, new {body}), DataAction.Updated);
+        }
+
+        /// <summary>
+        /// 上传图标并返回图标地址。
+        /// </summary>
+        /// <param name="file">文件实例。</param>
+        /// <returns>返回图标地址。</returns>
+        public async Task<string> UploadIconAsync(IFormFile file)
+        {
+           return await _provider.UploadAsync(file, true, TagSettings.ExtensionName);
         }
     }
 }

@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "_Admin";
+    ViewBag.Title = "用户组";
+    ViewBag.Current = "users.roles";
+}
+
+@using Mozlite.Extensions.Identity
+@model IEnumerable<Role>
+<toolbar>
+    <buttonbar>
+        <group>
+            <action x-ignore="true" x-modal="@Url.ActionUrl("Edit")" x-icon="plus-circle" class="btn-primary">添加用户组</action>
+        </group>
+        <group>
+            <action x-enabled="Single" x-modal="@Url.ActionUrl("Edit")" x-icon="edit">编辑</action>
+            <action x-excluded="1,2" x-enabled="Multi" x-confirm="你确定要删除所选的用户组吗？" x-action="@Url.ActionUrl("Delete")" x-icon="trash">删除</action>
+        </group>
+    </buttonbar>
+</toolbar>
+<div class="summary clearfix">
+    <div class="summary-inner">
+        <span>全部列表</span><span class="addon">(其中有两个用户组“@IdentitySettings.Administrator”和“@IdentitySettings.Register”为系统默认，不能删除!)</span>
+        <span class="pull-right">已经加载全部，共@(Model.Count())个</span>
+    </div>
+</div>
+<div class="list-header">
+    <list-header>
+        <item x-mode="First" style="width: 50%;">名称</item>
+        <item x-mode="Last" style="width: 50%;">显示名称</item>
+    </list-header>
+    <div class="list-checked">
+        <input type="checkbox" />
+        <span class="text" js-text="已选中$size个用户组"></span>
+    </div>
+</div>
+
+<div class="list-body scrolly">
+    <dl class="list-view">
+        @foreach (var role in Model)
+        {
+            <dd class="list-view-item clearfix">
+                <div class="col first-col" style="width: 50%;">
+                    <input value="@role.RoleId" name="id" type="checkbox" />
+                    <span class="text">
+                        @(role.RoleName)
+                    </span>
+                </div>
+                <div class="col last-col" style="width: 50%;">
+                    @role.DisplayName
+                </div>
+            </dd>
+        }
+    </dl>
+</div>

@@ -18,6 +18,7 @@ namespace Mozlite.Extensions.Tags
         /// <summary>
         /// 收藏数量。
         /// </summary>
+        [Ignore(Ignore.Update)]
         public int Follows { get; set; }
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace Mozlite.Extensions.Tags
         /// <summary>
         /// 标签百科，详细信息。
         /// </summary>
+        [Ignore(Ignore.List | Ignore.Update)]
         public string Body { get; set; }
     }
 }

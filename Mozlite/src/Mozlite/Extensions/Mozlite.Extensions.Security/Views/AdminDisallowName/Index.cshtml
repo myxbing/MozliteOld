@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "_Admin";
+    ViewBag.Title = "非法用户名";
+    ViewBag.Current = "users.names";
+}
+
+@model Mozlite.Extensions.Security.DisallowNames.NameQuery
+<toolbar>
+    <buttonbar>
+        <group>
+            <action x-ignore="true" x-modal="@Url.ActionUrl("Create")" x-icon="plus-circle" class="btn-primary">添加名称</action>
+        </group>
+        <group>
+            <action x-enabled="Multi" x-confirm="你确定要删除所选的名称吗？" x-action="@Url.ActionUrl("Delete")" x-icon="trash">删除</action>
+        </group>
+    </buttonbar>
+</toolbar>
+<div class="summary clearfix">
+    <div class="summary-inner">
+        <span>名称列表</span>
+        <span class="pull-right">加载第@(Model.Page)页@(Model.Count())个，共@(Model.Size)个</span>
+    </div>
+</div>
+<div class="list-header">
+    <list-header>
+        <item x-mode="Line" style="width: 100%;">名称</item>
+    </list-header>
+    <div class="list-checked">
+        <input type="checkbox" />
+        <span class="text" js-text="已选中$size个名称"></span>
+    </div>
+</div>
+
+<div class="list-body scrolly">
+    <dl class="grid-view">
+        @foreach (var name in Model)
+        {
+            <dd class="grid-view-item dname">
+                <input value="@name.Id" name="id" type="checkbox" />
+                <span class="text">
+                    @(name.Name)
+                </span>
+            </dd>
+        }
+    </dl>
+    <div class="grid-pager">
+        <page x-border="true"></page>
+    </div>
+</div>

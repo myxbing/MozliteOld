@@ -8,7 +8,9 @@
     "jquery-validation-unobtrusive": "3.2.6",
     "font-awesome": "4.7.0",
     "iCheck": "1.0.2",
-    "codemirror": "5.14.2"
+    "codemirror": "5.14.2",
+    "eonasdan-bootstrap-datetimepicker": "4.17.37",
+    "summernote": "0.8.1"
   },
   "resolutions": {
     "jquery-validation": "1.15.0",

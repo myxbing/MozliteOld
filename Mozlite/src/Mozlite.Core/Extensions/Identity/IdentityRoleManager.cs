@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,10 +24,10 @@ namespace Mozlite.Extensions.Identity
         /// </summary>
         /// <param name="repository">用户组数据库操作接口。</param>
         /// <param name="store">用户组存储接口实例。</param>
-        protected IdentityRoleManager(IRepository<TRole> repository, IRoleClaimStore<TRole> store)
+        protected IdentityRoleManager(IRepository<TRole> repository, IRoleStore<TRole> store)
         {
             Repository = repository;
-            _store = store;
+            _store = store as IRoleClaimStore<TRole>;
         }
 
         /// <summary>
@@ -61,6 +62,18 @@ namespace Mozlite.Extensions.Identity
         public virtual Task<IdentityResult> DeleteAsync(int roleId, CancellationToken cancellationToken = new CancellationToken())
         {
             return _store.DeleteAsync(new TRole { RoleId = roleId }, cancellationToken);
+        }
+
+        /// <summary>
+        /// 删除用户组。
+        /// </summary>
+        /// <param name="roleIds">用户组ID集合。</param>
+        /// <param name="cancellationToken">取消标志。</param>
+        /// <returns>返回删除结果。</returns>
+        public Task<bool> DeleteAsync(string roleIds, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var ints = roleIds.SplitToInt32();
+            return Repository.DeleteAsync(x => x.RoleId.Included(ints), cancellationToken);
         }
 
         /// <summary>
@@ -128,6 +141,15 @@ namespace Mozlite.Extensions.Identity
         public virtual Task<IdentityResult> UpdateAsync(TRole role, CancellationToken cancellationToken = new CancellationToken())
         {
             return _store.UpdateAsync(role, cancellationToken);
+        }
+
+        /// <summary>
+        /// 加载所有用户组。
+        /// </summary>
+        /// <returns>所有用户组。</returns>
+        public IEnumerable<TRole> Load()
+        {
+            return Repository.Load().OrderByDescending(x => x.Priority);
         }
     }
 }

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Category>
+@{
+    Layout = "_Admin";
+    ViewBag.Title = "标签分类";
+    ViewBag.Current = "contents.tags.categories";
+}
+
+<toolbar>
+    <buttonbar>
+        <group>
+            <action x-ignore="true" x-modal="@Url.ActionUrl("Edit")" x-icon="plus-circle" class="btn-primary">添加名称</action>
+        </group>
+        <group>
+            <action x-enabled="Single" x-modal="@Url.ActionUrl("Edit")" x-icon="edit">编辑</action>
+            <action x-enabled="Multi" x-confirm="你确定要删除所选的分类吗？" x-action="@Url.ActionUrl("Delete")" x-icon="trash">删除</action>
+        </group>
+    </buttonbar>
+</toolbar>
+<div class="summary clearfix">
+    <div class="summary-inner">
+        <span>全部列表</span>
+        <span class="pull-right">已经加载@(Model.Count())个</span>
+    </div>
+</div>
+<div class="list-header">
+    <list-header>
+        <item x-mode="First" style="width: 40%;">分类名称</item>
+        <item x-mode="Last" style="width: 60%;">描述</item>
+    </list-header>
+    <div class="list-checked">
+        <input type="checkbox" />
+        <span class="text" js-text="已选中$size个分类名称"></span>
+    </div>
+</div>
+
+<div class="list-body scrolly">
+    <dl class="list-view">
+        @foreach (var category in Model)
+        {
+            <dd class="list-view-item clearfix">
+                <div class="col first-col" style="width: 40%;">
+                    <input value="@category.Id" name="id" type="checkbox" />
+                    <span class="text">
+                        @(category.Name)
+                    </span>
+                </div>
+                <div class="col last-col" style="width: 60%;">
+                    @category.Description
+                </div>
+            </dd>
+        }
+    </dl>
+</div>

@@ -155,7 +155,7 @@
                 }
                 if (d.type === 'success') {
                     if (success)
-                        success(d);
+                        success(d.data || d);
                     else
                         location.href = location.href;
                 }
@@ -247,7 +247,7 @@
                 callback = callback || form.parents('.js-modal').data('func');
                 if (callback) {
                     var modal = form.parents('.js-modal');
-                    callback(modal.data('source'), d.data || d, modal);
+                    callback(modal.data('source'), d, modal);
                 } else
                     setTimeout(function () { location.href = location.href; }, 1000);
             },

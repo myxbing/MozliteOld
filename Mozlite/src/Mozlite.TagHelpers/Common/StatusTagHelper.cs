@@ -33,6 +33,9 @@ namespace Mozlite.TagHelpers.Common
         [HtmlAttributeName(AttributeName)]
         public bool Status { get; set; }
 
+        [HtmlAttributeName("x-titled")]
+        public bool IsTextTitle { get; set; }
+
         /// <summary>
         /// 正确显示的文字。
         /// </summary>
@@ -67,14 +70,19 @@ namespace Mozlite.TagHelpers.Common
                 builder.AddCssClass($"fa-{FalseIconName}");
                 wrapper.AddCssClass("text-danger");
             }
+            var text = Status ? TrueText : FalseText;
             output.TagName = "span";
             output.MergeAttributes(wrapper);
-            output.Content.AppendHtml(builder);
-            var text = Status ? TrueText : FalseText;
-            if (string.IsNullOrWhiteSpace(text))
+            if (IsTextTitle)
+            {
+                if (!string.IsNullOrWhiteSpace(text))
+                    builder.MergeAttribute("title", text);
+            }
+            else if (string.IsNullOrWhiteSpace(text))
                 output.Content.AppendHtml(await output.GetChildContentAsync());
             else
                 output.Content.AppendHtml(text);
+            output.Content.AppendHtml(builder);
         }
     }
 }

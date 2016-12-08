@@ -1,0 +1,12 @@
+﻿@model Tag
+
+@{
+    Layout = "_Modal";
+    ViewBag.Title = "编辑标签详细内容";
+}
+<input type="hidden" asp-for="Id"/>
+<div class="form-group">
+    <label class="control-label">内容</label>
+    <textarea class="form-control" asp-for="Body"></textarea>
+</div>
+<script type="text/javascript">$('#Body').summernote({ airMode: true });</script>

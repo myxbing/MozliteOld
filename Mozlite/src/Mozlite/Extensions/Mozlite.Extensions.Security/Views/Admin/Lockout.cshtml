@@ -1,0 +1,18 @@
+﻿@model LockoutUser
+
+@{
+    Layout = "_Modal";
+    ViewBag.Title = "锁定账户";
+}
+
+<input type="hidden" asp-for="UserIds"/>
+<div class="form-group">
+    <label class="control-label">锁定截至时间</label>
+    <input type="text" class="form-control" asp-for="LockEnd">
+</div>
+<script type="text/javascript">
+    $('#LockEnd').datetimepicker({
+        locale: 'zh-cn',
+        format: 'YYYY-MM-DD HH:mm'
+    });
+</script>

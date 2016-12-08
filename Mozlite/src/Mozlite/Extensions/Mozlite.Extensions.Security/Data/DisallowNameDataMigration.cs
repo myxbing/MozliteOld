@@ -1,6 +1,7 @@
 ﻿using Mozlite.Data.Migrations;
+using Mozlite.Extensions.Security.DisallowNames;
 
-namespace Mozlite.Extensions.Security.DisallowNames
+namespace Mozlite.Extensions.Security.Data
 {
     /// <summary>
     /// 非法名称数据迁移类型。

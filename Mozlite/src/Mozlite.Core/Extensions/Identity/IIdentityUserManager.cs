@@ -135,7 +135,7 @@ namespace Mozlite.Extensions.Identity
         /// <param name="userIds">用户Id集合。</param>
         /// <param name="lockoutEnd">锁定过期时间。</param>
         /// <returns>返回锁定结果。</returns>
-        bool LockoutUsers(int[] userIds, DateTime lockoutEnd);
+        bool LockoutUsers(int[] userIds, DateTimeOffset? lockoutEnd);
 
         /// <summary>
         /// 删除用户。
@@ -150,7 +150,7 @@ namespace Mozlite.Extensions.Identity
         /// <param name="userIds">用户Id集合。</param>
         /// <param name="lockoutEnd">锁定过期时间。</param>
         /// <returns>返回锁定结果。</returns>
-        Task<bool> LockoutUsersAsync(int[] userIds, DateTime lockoutEnd);
+        Task<bool> LockoutUsersAsync(int[] userIds, DateTimeOffset? lockoutEnd);
 
         /// <summary>
         /// 删除用户。
@@ -237,5 +237,13 @@ namespace Mozlite.Extensions.Identity
         /// <param name="query">用户查询实例对象。</param>
         /// <returns>返回分页实例。</returns>
         TQuery Load<TQuery>(TQuery query) where TQuery : QueryBase<TUser>;
+
+        /// <summary>
+        /// 修改昵称。
+        /// </summary>
+        /// <param name="id">用户Id。</param>
+        /// <param name="nickName">昵称。</param>
+        /// <returns>返回修改结果。</returns>
+        Task<DataResult> ChangeNickNameAsync(int id, string nickName);
     }
 }

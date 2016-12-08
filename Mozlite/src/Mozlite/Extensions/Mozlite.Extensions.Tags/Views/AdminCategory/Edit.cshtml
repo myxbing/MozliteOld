@@ -1,0 +1,15 @@
+﻿@model Category
+
+@{
+    Layout = "_Modal";
+    ViewBag.Title = Model != null ? "编辑标签分类" : "添加标签分类";
+}
+<input type="hidden" asp-for="Id"/>
+<div class="form-group">
+    <label class="control-label">分类名称</label>
+    <input type="text" class="form-control" asp-for="Name" required="required" placeholder="分类名称">
+</div>
+<div class="form-group">
+    <label class="control-label">描述</label>
+    <textarea rows="8" class="form-control" asp-for="Description"></textarea>
+</div>

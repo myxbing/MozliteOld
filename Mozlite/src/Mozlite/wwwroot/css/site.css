@@ -366,43 +366,6 @@ footer {
     border-color: #008151;
 }
 
-/*margin,padding*/
-.mt5 {
-    margin-top: 5px !important;
-}
-
-.mt10 {
-    margin-top: 10px !important;
-}
-
-.mt20 {
-    margin-top: 20px !important;
-}
-
-.mt30 {
-    margin-top: 30px !important;
-}
-
-.mb5 {
-    margin-bottom: 5px !important;
-}
-
-.mb10 {
-    margin-bottom: 10px !important;
-}
-
-.mb20 {
-    margin-bottom: 20px !important;
-}
-
-.mb30 {
-    margin-bottom: 30px !important;
-}
-
-.ml15 {
-    margin-left: 15px !important;
-}
-
 /*profile*/
 .profile {
 }
@@ -492,6 +455,10 @@ footer {
     .profile-award .btn .text {
         font-size: 14px;
         margin-left: 8px;
+    }
+
+    .profile-award .btn .fa {
+        font-size: 14px;
     }
 
 .profile-award .award-badge {

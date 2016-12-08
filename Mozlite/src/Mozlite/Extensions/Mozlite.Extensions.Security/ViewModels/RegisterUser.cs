@@ -10,4 +10,16 @@
         public string ConfirmPassword { get; set; }
         public string Email { get; set; }
     }
+
+    /// <summary>
+    /// 添加用户实例。
+    /// </summary>
+    public class CreateUser : RegisterUser
+    {
+        public bool IgnoreEmailConfirm { get; set; }
+
+        public bool IgnoreDisallowNames { get; set; }
+
+
+    }
 }

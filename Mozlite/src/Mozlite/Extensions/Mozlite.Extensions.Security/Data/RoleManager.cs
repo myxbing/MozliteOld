@@ -14,7 +14,7 @@ namespace Mozlite.Extensions.Security.Data
         /// </summary>
         /// <param name="repository">用户组数据库操作接口。</param>
         /// <param name="store">用户组存储接口实例。</param>
-        public RoleManager(IRepository<Role> repository, IRoleClaimStore<Role> store) : base(repository, store)
+        public RoleManager(IRepository<Role> repository, IRoleStore<Role> store) : base(repository, store)
         {
         }
     }

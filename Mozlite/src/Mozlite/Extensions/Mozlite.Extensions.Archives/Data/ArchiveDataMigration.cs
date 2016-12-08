@@ -1,7 +1,7 @@
 ﻿using Mozlite.Data.Migrations.Builders;
-using Mozlite.Extensions.Tags;
+using Mozlite.Extensions.Tags.Data;
 
-namespace Mozlite.Extensions.Archives
+namespace Mozlite.Extensions.Archives.Data
 {
     /// <summary>
     /// 新闻数据库迁移类。

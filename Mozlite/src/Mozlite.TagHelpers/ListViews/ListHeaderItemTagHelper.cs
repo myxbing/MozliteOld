@@ -21,7 +21,7 @@ namespace Mozlite.TagHelpers.ListViews
 
         [HtmlAttributeName("x-query")]
         public ISortable Query { get; set; }
-        
+
         /// <summary>
         /// 异步访问并呈现当前标签实例。
         /// </summary>
@@ -33,10 +33,15 @@ namespace Mozlite.TagHelpers.ListViews
             output.TagName = "li";
             var builder = new TagBuilder("li");
             builder.AddCssClass("col");
-            if (Mode != ItemMode.Normal)
-                builder.AddCssClass($"{Mode.ToString().ToLower()}-col");
-            if (Mode == ItemMode.First)
+            if ((Mode & ItemMode.First)==ItemMode.First)
+            {
+                builder.AddCssClass("first-col");
                 output.Content.AppendHtml("<input type=\"checkbox\" />");//全选
+            }
+            if ((Mode & ItemMode.Last) == ItemMode.Last)
+            {
+                builder.AddCssClass("last-col");
+            }
             output.Content.AppendHtml("<span class=\"text\">");
             output.Content.AppendHtml(await output.GetChildContentAsync());
             output.Content.AppendHtml("</span>");

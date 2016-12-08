@@ -45,10 +45,10 @@ namespace Mozlite.TagHelpers.AdminMenus
             _urlHelper = _factory.GetUrlHelper(ViewContext);
             output.TagName = "ul";
             var current = ViewContext.GetCurrent(_menuProviderFactory, Provider, _urlHelper);
-            var items = current.GetTopMenu()
+            var items = current?.GetTopMenu()
                 .Where(it => it.Level > 0 && ViewContext.IsInRoles(it))//当前项
                 .OrderByDescending(it => it.Priority);
-            if (!items.Any())
+            if (items == null || !items.Any())
                 return;
             foreach (var item in items)
             {

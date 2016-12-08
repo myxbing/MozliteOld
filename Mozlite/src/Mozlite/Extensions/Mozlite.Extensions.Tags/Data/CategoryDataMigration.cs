@@ -1,6 +1,6 @@
 ﻿using Mozlite.Extensions.Categories;
 
-namespace Mozlite.Extensions.Tags
+namespace Mozlite.Extensions.Tags.Data
 {
     /// <summary>
     /// 分类数据库迁移。

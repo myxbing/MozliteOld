@@ -3,8 +3,10 @@
     ViewBag.Title = "用户";
     ViewBag.Current = "users.index";
 }
-@using Mozlite.Mvc
+
 @model UserQuery
+@inject User CurrentUser
+
 <toolbar>
     <sortbar x-query="@Model"></sortbar>
     <searchbar>
@@ -12,21 +14,29 @@
     </searchbar>
     <buttonbar>
         <group>
-            <action x-icon="plus-circle" class="btn-primary">添加用户</action>
+            <action x-ignore="true" x-modal="@Url.ActionUrl("Create")" x-ic x-icon="user-plus" class="btn-primary">添加用户</action>
         </group>
         <group>
             <action x-modal="@Url.ActionUrl("SetPassword")" x-icon="key" x-enabled="Single">设置密码</action>
+            <action x-excluded="@CurrentUser.UserId" x-confirm="你确定要删除所选择的用户吗？一旦删除所有关联用户的数据将被清理！" x-action="@Url.ActionUrl("Delete")" x-icon="trash" x-enabled="Multi">删除</action>
         </group>
-        <dropdownlist x-title="更多操作">
-            <li><a href="#">测试</a></li>
+        <dropdownlist x-enabled="Multi" x-title="更多操作">
+            <listitem x-excluded="@CurrentUser.UserId" x-modal="@Url.ActionUrl("Lockout")" x-enabled="Multi">锁定</listitem>
+            <listitem x-excluded="@CurrentUser.UserId" x-action="@Url.ActionUrl("Unlock")" x-enabled="Multi">解锁</listitem>
         </dropdownlist>
     </buttonbar>
 </toolbar>
+<div class="summary clearfix">
+    <div class="summary-inner">
+        <span>用户列表</span><span class="addon">(不能对自身账户进行“删除”，“锁定”以及“解锁”等操作！)</span>
+        <span class="pull-right">加载第@(Model.Page)页@(Model.Count())个，共@(Model.Size)个</span>
+    </div>
+</div>
 <div class="list-header">
     <list-header>
         <item x-mode="First" x-sorter="@UserSorter.Name" style="width: 60%;">名称</item>
         <item x-sorter="@UserSorter.CreatedDate" style="width: 16%;">注册时间</item>
-        <item x-mode="Last" x-sorter="@UserSorter.LastLoginDate" style="width: 24%;">最后登陆时间</item>
+        <item x-mode="Last" x-sorter="@UserSorter.LastLoginDate" style="width: 20%;">最后登陆时间</item>
     </list-header>
     <div class="list-checked">
         <input type="checkbox" />
@@ -41,12 +51,19 @@
             <dd class="list-view-item clearfix">
                 <div class="col first-col" style="width: 60%;">
                     <input value="@user.UserId" name="id" type="checkbox" />
-                    <span class="text">@(user.NickName)[@user.UserName]</span>
+                    <span class="text">
+                        <status x-value="@user.EmailConfirmed" x-titled="true" x-false="flag" x-true="flag" x-true-text="激活" x-false-text="未激活"></status>
+                        @(user.NickName)(@user.UserName)
+                        <span class="ml15">
+                            @if (user.LockoutEnabled && user.LockoutEnd > DateTimeOffset.Now)
+                            {<i title="锁定：@user.LockoutEnd?.ToString("g")" class="fa fa-lock text-danger"></i>}
+                        </span>
+                    </span>
                 </div>
                 <div class="col" style="width: 16%;">
                     @user.CreatedDate.ToString("g")
                 </div>
-                <div class="col last-col" style="width: 24%;">
+                <div class="col last-col" style="width: 20%;">
                     @(user.LastLoginDate?.ToString("g") ?? "未登录")
                 </div>
             </dd>
@@ -56,3 +73,12 @@
         <page x-border="true"></page>
     </div>
 </div>
+
+@section scripts{
+<script type="text/javascript" src="~/lib/moment/min/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+}
+
+@section headers{
+    <link href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+}

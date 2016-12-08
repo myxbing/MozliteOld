@@ -1,6 +1,6 @@
 ﻿using Mozlite.Data.Migrations;
 
-namespace Mozlite.Extensions.Tags
+namespace Mozlite.Extensions.Tags.Data
 {
     /// <summary>
     /// 标签数据库迁移类。

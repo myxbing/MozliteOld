@@ -1,0 +1,26 @@
+﻿@model CreateUser
+
+@{
+    Layout = "_Modal";
+    ViewBag.Title = "设置密码";
+}
+<div class="form-group">
+    <label class="control-label">用户名</label>
+    <input type="text" class="form-control" asp-for="UserName" required="required" placeholder="用户名">
+</div>
+<div class="form-group">
+    <label class="checkbox checkbox-inline"><input type="checkbox" asp-for="IgnoreDisallowNames"> 忽略非法名称</label>
+    <label class="checkbox checkbox-inline ml20"><input type="checkbox" asp-for="IgnoreEmailConfirm"> 直接激活账户</label>
+</div>
+<div class="form-group">
+    <label class="control-label">密码</label>
+    <input type="password" class="form-control" asp-for="Password" required="required" placeholder="不少于 6 位">
+</div>
+<div class="form-group">
+    <label class="control-label">确认密码</label>
+    <input type="password" class="form-control" asp-for="ConfirmPassword" required="required" placeholder="再一次输入密码">
+</div>
+<div class="form-group">
+    <label class="control-label">电子邮件</label>
+    <input type="text" class="form-control" asp-for="Email" required="required" placeholder="邮件地址">
+</div>

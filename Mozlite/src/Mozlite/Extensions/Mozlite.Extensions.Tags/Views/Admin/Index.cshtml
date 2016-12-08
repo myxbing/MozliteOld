@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "_Admin";
+    ViewBag.Title = "所有标签";
+    ViewBag.Current = "contents.tags";
+    var getName = (Func<int, string>)ViewBag.GetName;
+}
+@model TagQuery
+
+<toolbar>
+    <sortbar x-query="@Model"></sortbar>
+    <searchbar>
+        <input class="form-control" asp-for="Name" placeholder="输入名称" />
+        <div class="select-addon"><tagcategorylist x-for="Cid"></tagcategorylist></div>
+    </searchbar>
+    <buttonbar>
+        <group>
+            <action x-ignore="true" x-modal="@Url.ActionUrl("Edit")" x-icon="plus-circle" class="btn-primary">添加名称</action>
+        </group>
+        <group>
+            <action x-enabled="Single" x-modal="@Url.ActionUrl("Edit")" x-icon="edit">编辑</action>
+            <action x-enabled="Multi" x-confirm="你确定要删除所选的标签吗？" x-action="@Url.ActionUrl("Delete")" x-icon="trash">删除</action>
+        </group>
+    </buttonbar>
+</toolbar>
+
+<div class="summary clearfix">
+    <div class="summary-inner">
+        <span>标签列表</span>
+        <span class="pull-right">加载第@(Model.Page)页@(Model.Count())个，共@(Model.Size)个</span>
+    </div>
+</div>
+
+<div class="list-header">
+    <list-header>
+        <item x-mode="First" x-sorter="@TagSorter.Name" style="width: 30%;">名称</item>
+        <item x-sorter="@TagSorter.Follows" style="width: 10%;">关注</item>
+        <item x-mode="Last" style="width: 60%;">描述</item>
+    </list-header>
+    <div class="list-checked">
+        <input type="checkbox" />
+        <span class="text" js-text="已选中$size个标签"></span>
+    </div>
+</div>
+
+<div class="list-body scrolly">
+    <dl class="list-view">
+        @foreach (var tag in Model)
+        {
+            <dd class="list-view-item clearfix">
+                <div class="col first-col" style="width: 30%;">
+                    <input value="@tag.Id" name="id" type="checkbox" />
+                    <span class="text">
+                        [@(getName(tag.Id))]
+                        @tag.Name
+                    </span>
+                </div>
+                <div class="col" style="width: 10%;">
+                    @tag.Follows
+                </div>
+                <div class="col last-col" style="width: 60%;">
+                    @tag.Description
+                </div>
+            </dd>
+        }
+    </dl>
+    <div class="list-pager">
+        <page x-border="true"></page>
+    </div>
+</div>
+
+@section scripts{
+    <form role="form" enctype="multipart/form-data" onsubmit="$submit(this, function (d) { $('#IconUrl').val(d.url); }); return false;" style="display: none" asp-action="UploadIcon" asp-area="Tags" asp-controller="Admin">
+        <input onchange="$(this).parents('form').submit();" id="iconfile" type="file" name="file" />
+    </form>
+    <script type="text/javascript" src="~/lib/summernote/dist/summernote.min.js"></script>
+    <script type="text/javascript" src="~/lib/summernote/dist/lang/summernote-zh-CN.js"></script>
+}
+
+@section headers{
+    <link rel="stylesheet" href="~/lib/summernote/dist/summernote.css" type="text/css" />
+}

@@ -37,7 +37,13 @@ namespace Mozlite.Extensions.Security.Services
                    options.SignIn.RequireConfirmedEmail = true;
                })
                .AddScoped(service => service.GetRequiredService<IUserManager>().GetUser())
-               .AddScoped(service=>service.GetRequiredService<ISettingsManager>().GetSettings<SecuritySettings>());
+               .AddScoped(service =>
+                {
+                    var userManager = service.GetRequiredService<IUserManager>();
+                    var user = userManager.GetUser();
+                    return userManager.GetProfile(user);
+                })
+               .AddScoped(service => service.GetRequiredService<ISettingsManager>().GetSettings<SecuritySettings>());
         }
     }
 }

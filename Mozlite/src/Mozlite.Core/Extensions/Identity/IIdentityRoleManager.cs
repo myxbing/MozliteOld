@@ -37,7 +37,15 @@ namespace Mozlite.Extensions.Identity
         /// <param name="cancellationToken">取消标志。</param>
         /// <returns>返回删除结果。</returns>
         Task<IdentityResult> DeleteAsync(int roleId, CancellationToken cancellationToken = default(CancellationToken));
-        
+
+        /// <summary>
+        /// 删除用户组。
+        /// </summary>
+        /// <param name="roleIds">用户组ID集合。</param>
+        /// <param name="cancellationToken">取消标志。</param>
+        /// <returns>返回删除结果。</returns>
+        Task<bool> DeleteAsync(string roleIds, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <summary>
         /// 查询用户组。
         /// </summary>
@@ -86,5 +94,11 @@ namespace Mozlite.Extensions.Identity
         /// <param name="cancellationToken">取消标志。</param>
         /// <returns>返回更新结果。</returns>
         Task<IdentityResult> UpdateAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// 加载所有用户组。
+        /// </summary>
+        /// <returns>所有用户组。</returns>
+        IEnumerable<TRole> Load();
     }
 }

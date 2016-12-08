@@ -1,7 +1,7 @@
 ﻿using Mozlite.Data.Migrations;
 using Mozlite.Extensions.Categories;
 
-namespace Mozlite.Extensions.Archives
+namespace Mozlite.Extensions.Archives.Data
 {
     /// <summary>
     /// 分类数据库迁移实例。

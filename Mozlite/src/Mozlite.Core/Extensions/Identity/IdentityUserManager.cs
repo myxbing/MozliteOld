@@ -145,7 +145,7 @@ namespace Mozlite.Extensions.Identity
         /// <param name="userIds">用户Id集合。</param>
         /// <param name="lockoutEnd">锁定过期时间。</param>
         /// <returns>返回锁定结果。</returns>
-        public bool LockoutUsers(int[] userIds, DateTime lockoutEnd)
+        public bool LockoutUsers(int[] userIds, DateTimeOffset? lockoutEnd)
         {
             return Repository.Update(user => user.LockoutEnabled && user.UserId.Included(userIds), new { lockoutEnd });
         }
@@ -166,7 +166,7 @@ namespace Mozlite.Extensions.Identity
         /// <param name="userIds">用户Id集合。</param>
         /// <param name="lockoutEnd">锁定过期时间。</param>
         /// <returns>返回锁定结果。</returns>
-        public Task<bool> LockoutUsersAsync(int[] userIds, DateTime lockoutEnd)
+        public Task<bool> LockoutUsersAsync(int[] userIds, DateTimeOffset? lockoutEnd)
         {
             return Repository.UpdateAsync(user => user.LockoutEnabled && user.UserId.Included(userIds), new { lockoutEnd });
         }
@@ -293,6 +293,19 @@ namespace Mozlite.Extensions.Identity
         public TQuery Load<TQuery>(TQuery query) where TQuery : QueryBase<TUser>
         {
             return Repository.Load(query);
+        }
+
+        /// <summary>
+        /// 修改昵称。
+        /// </summary>
+        /// <param name="id">用户Id。</param>
+        /// <param name="nickName">昵称。</param>
+        /// <returns>返回修改结果。</returns>
+        public async Task<DataResult> ChangeNickNameAsync(int id, string nickName)
+        {
+            if (await Repository.AnyAsync(x => x.UserId != id && x.NickName == nickName))
+                return DataAction.Duplicate;
+            return DataResult.FromResult(await Repository.UpdateAsync(x => x.UserId == id, new { nickName, updateddate = DateTimeOffset.Now }), DataAction.Updated);
         }
 
         /// <summary>

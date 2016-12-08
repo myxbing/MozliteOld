@@ -396,19 +396,47 @@ a {
             opacity: 0.8;
         }
 
+    .toolbar .dropdown-menu .btn {
+        border: none;
+    }
+
     .toolbar .btn i.fa {
         margin-right: 5px;
     }
 
     .toolbar .bar-search {
         float: right;
-        width: 21%;
         min-width: 165px;
         max-width: 315px;
         height: 30px;
         position: relative;
         margin-right: 10px;
     }
+
+        .toolbar .bar-search .select-addon {
+            padding: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: middle;
+            display: table-cell;
+            border-radius: 0;
+        }
+
+        .toolbar .bar-search .select-addon select {
+            border: none;
+            height: 32px;
+            margin-left: -1px;
+            padding-left: 10px;
+            padding-right: 5px;
+            border-radius: 0;
+        }
 
     .toolbar .bar-sorter {
         float: right;
@@ -523,8 +551,7 @@ a {
     .list-header .list-checked {
         padding-left: 15px;
         display: none;
-        margin-top: 1px;
-        line-height: 35px;
+        line-height: 36px;
     }
 
 .list-body {
@@ -532,9 +559,10 @@ a {
     height: 266px;
 }
 
-    .list-body .list-view {
+    .list-body .list-view, .list-body .grid-view {
         font: 12px/1.5 tahoma,arial;
         height: auto;
+        position: relative;
     }
 
         .list-body .list-view .list-view-item {
@@ -594,11 +622,50 @@ a {
     margin-left: 6px;
 }
 
-.list-pager {
+.list-pager, .grid-pager {
     padding-left: 15px;
     padding-right: 15px;
     text-align: center;
+    clear: both;
 }
+
+.grid-view {
+    clear: both;
+    border-top: 1px solid #f2f6fd;
+}
+
+.grid-view-item {
+    width: 120px;
+    height: 127px;
+    float: left;
+    margin: 15px 0 0 15px;
+    text-align: center;
+    border: 1px solid #fff;
+    position: relative;
+}
+
+    .grid-view-item input[type=checkbox] {
+        display: none;
+    }
+
+    .grid-view-item .icheckbox_minimal-green {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: 10;
+        display: none;
+    }
+
+    .grid-view-item:hover .icheckbox_minimal-green, .grid-view-item.active .icheckbox_minimal-green {
+        display: inline-block;
+    }
+
+    .grid-view-item:hover, .grid-view-item.active {
+        background-color: #f1f5fa;
+        border: 1px solid #90c3fd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
 .scrolly {
     overflow: hidden;
@@ -658,6 +725,12 @@ a {
     display: none;
 }
 
-.modal-alert .errmsg {
-    margin-left: 10px;
+    .modal-alert .errmsg {
+        margin-left: 10px;
+    }
+
+.dname {
+    line-height: 24px;
+    height: 100px;
+    padding-top: 20px;
 }
